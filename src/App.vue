@@ -1,15 +1,21 @@
 <template>
 	<div id="app">
-		<LeftMain></LeftMain>
+		<div class="container-main">
+			<LeftMain></LeftMain>
+			<right-main></right-main>
+		</div>
 	</div>
 </template>
 
 <script>
 	import LeftMain from "./components/LeftMain.vue";
+	import RightMain from "./components/RightMain.vue";
+
 	export default {
 		name: "App",
 		components: {
 			LeftMain,
+			RightMain,
 		},
 	};
 </script>
@@ -18,7 +24,7 @@
 	html {
 		/*图片模糊背景＋黑色透明卡片+白色svg**/
 		--name: 主题5;
-		/* --main_bg_color: url(https://cdn.domye.top/uploads/07/1753247356.webp); */
+		--main_bg_color: linear-gradient(120deg, #8d6c9c, #a3544a 30%, #809aa3 60%);
 		--main_text_color: #eeeeee;
 		--gradient: linear-gradient(120deg, #bd34fe, #e0321b 30%, #41d1ff 60%);
 		--purple_text_color: #ffffff;
@@ -70,13 +76,20 @@
 			linear-gradient(50deg, #a2d0ff, #ffffff)
 		);
 	}
+	.container-main {
+		width: 100%;
+		transition: transform 0.5s ease;
+		max-width: 1150px;
+		position: relative;
+		flex-direction: row;
+	}
 	#app {
 		display: flex;
 		height: 100%;
 		min-height: 100vh;
 		width: 100%;
 		position: relative;
-		font-family: "b", "a", sans-serif;
+		font-family: "Douyin Sans";
 		background: var(--main_bg_color);
 		background-repeat: no-repeat;
 		background-size: cover;

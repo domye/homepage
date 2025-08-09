@@ -15,6 +15,7 @@
 		data() {
 			return {
 				times: [
+					{ action: "着手开始主页Vue化", date: "2025.8.09" },
 					{ action: "更换博客主题为Handsome", date: "2025.7.16" },
 					{ action: "着手开始写黑马点评项目", date: "2025.7.15" },
 					{ action: "重新开始搭建博客", date: "2024.11.7" },
