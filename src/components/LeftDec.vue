@@ -1,19 +1,17 @@
 <template>
 	<div class="left-div left-des">
-		<div v-for="(item, index) in dec" :key="index">
-			<div class="left-des-item">
-				<svg class="icon" viewBox="0 0 1024 1024" width="256" height="256">
-					<path :d="item.icon"></path>
-				</svg>
-				<a
-					style="border-bottom: 1px solid rgba(125, 125, 125, 0.3)"
-					target="_blank"
-					onclick="return false;"
-					href="#"
-				>
-					{{ item.dec }}
-				</a>
-			</div>
+		<div class="left-des-item" v-for="(item, index) in dec" :key="index">
+			<svg class="icon" viewBox="0 0 1024 1024" width="256" height="256">
+				<path :d="item.icon"></path>
+			</svg>
+			<a
+				style="border-bottom: 1px solid rgba(125, 125, 125, 0.3)"
+				target="_blank"
+				onclick="return false;"
+				href="#"
+			>
+				{{ item.dec }}
+			</a>
 		</div>
 	</div>
 </template>
