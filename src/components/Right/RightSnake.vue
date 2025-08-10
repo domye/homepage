@@ -1,7 +1,24 @@
-<template></template>
+<template>
+	<div class="tanChiShe">
+		<img
+			id="tanChiShe"
+			src="https://hub.gitmirror.com/https://raw.githubusercontent.com/domye/domye/output/github-contribution-grid-snake-Light.svg"
+			alt=""
+		/>
+	</div>
+</template>
 
 <script>
 	export default {};
 </script>
 
-<style></style>
+<style>
+	.tanChiShe {
+		width: 85%;
+	}
+	.tanChiShe img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+</style>

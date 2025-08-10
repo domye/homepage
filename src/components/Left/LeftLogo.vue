@@ -13,19 +13,6 @@
 </script>
 
 <style>
-	.container-left {
-		overflow-y: scroll;
-		width: 230px;
-		height: 100vh;
-		display: flex;
-		padding: 0 15px;
-		position: fixed;
-		align-items: center;
-		flex-direction: column;
-	}
-	.container-left::-webkit-scrollbar {
-		display: none;
-	}
 	.logo {
 		flex-shrink: 0;
 		width: 65%;
