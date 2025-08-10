@@ -4,10 +4,12 @@
 			<LeftMain></LeftMain>
 			<right-main></right-main>
 		</div>
+		<footer-main></footer-main>
 	</div>
 </template>
 
 <script>
+	import FooterMain from "./components/FooterMain.vue";
 	import LeftMain from "./components/LeftMain.vue";
 	import RightMain from "./components/RightMain.vue";
 
@@ -16,6 +18,7 @@
 		components: {
 			LeftMain,
 			RightMain,
+			FooterMain,
 		},
 	};
 </script>
