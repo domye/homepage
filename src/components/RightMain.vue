@@ -139,4 +139,34 @@
 	.iconContainer::-webkit-scrollbar {
 		display: none;
 	}
+	@keyframes zoom {
+		0% {
+			transform: scale(0);
+			opacity: 1;
+		}
+		50% {
+			opacity: 0.5;
+		}
+		100% {
+			transform: scale(1);
+			opacity: 0;
+		}
+	}
+	@keyframes backgroundSizeAnimation {
+		0% {
+			background-position: 100%;
+		}
+		25% {
+			background-position: 50%;
+		}
+		50% {
+			background-position: 0%;
+		}
+		75% {
+			background-position: 50%;
+		}
+		100% {
+			background-position: 100%;
+		}
+	}
 </style>

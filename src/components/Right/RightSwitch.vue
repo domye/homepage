@@ -6,7 +6,8 @@
 				name="onoffswitch"
 				class="onoffswitch-checkbox"
 				id="myonoffswitch"
-				checked
+				v-model="themeState"
+				@change="toggleTheme"
 			/>
 			<label class="onoffswitch-label" for="myonoffswitch">
 				<span class="onoffswitch-inner"></span>
@@ -17,9 +18,43 @@
 </template>
 
 <script>
-	export default {};
-</script>
+	export default {
+		data() {
+			return {
+				themeState: JSON.parse(sessionStorage.getItem("themeState")) ?? true,
+			};
+		},
+		mounted() {
+			this.applyTheme();
+		},
+		methods: {
+			toggleTheme() {
+				sessionStorage.setItem("themeState", JSON.stringify(this.themeState));
+				this.applyTheme();
+			},
+			applyTheme() {
+				const themeName = this.themeState ? "Light" : "Dark";
 
+				// 更新蛇形图
+				const tanChiShe = document.getElementById("tanChiShe");
+				if (tanChiShe) {
+					tanChiShe.src = `https://hub.gitmirror.com/https://raw.githubusercontent.com/domye/domye/output/github-contribution-grid-snake-${themeName}.svg`;
+				}
+
+				// 设置主题属性
+				document.documentElement.setAttribute("data-theme", themeName);
+
+				// 更新背景
+				document.documentElement.style.setProperty(
+					"--main_bg_color",
+					themeName === "Light"
+						? "url(https://cdn.domye.top/uploads/07/1753247356.webp)"
+						: "#000000"
+				);
+			},
+		},
+	};
+</script>
 <style>
 	.switch {
 		width: 55px;
