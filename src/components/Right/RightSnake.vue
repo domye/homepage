@@ -21,4 +21,10 @@
 		height: 100%;
 		object-fit: cover;
 	}
+	@media (max-width: 800px) {
+		.tanChiShe {
+			width: 100%;
+			transition: width 1s ease-in-out;
+		}
+	}
 </style>

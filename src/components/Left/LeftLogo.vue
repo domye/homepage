@@ -22,4 +22,10 @@
 		background-size: cover;
 		border-radius: 8%;
 	}
+
+	@media (min-width: 800px) {
+		.index-logo {
+			display: none;
+		}
+	}
 </style>

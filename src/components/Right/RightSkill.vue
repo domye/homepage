@@ -28,4 +28,17 @@
 	.skill #skillWap {
 		display: none;
 	}
+	@media (max-width: 800px) {
+		.skill #skillWap {
+			display: block;
+			opacity: 1;
+			transition: opacity 1s ease-in-out;
+		}
+
+		.skill #skillPc {
+			display: none;
+			opacity: 0;
+			transition: opacity 1s ease-in-out;
+		}
+	}
 </style>

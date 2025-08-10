@@ -98,9 +98,10 @@
 	}
 	/* 移除标题字体大小的变化 */
 	.projectItemLeft h1 {
+		display: block;
+		margin-top: 6px;
 		font-weight: normal;
-		font-size: 16px;
-		margin: 0px;
+		font-size: 18px;
 		/* 不再改变字体大小 */
 		color: var(--item_left_title_color);
 	}
@@ -108,5 +109,50 @@
 		font-size: 12px;
 		margin-top: 15px;
 		color: var(--item_left_text_color);
+	}
+
+	@media (max-width: 1150px) {
+		.projectItem {
+			margin: 10px;
+			transition: margin 1s ease-in-out; /* 添加过渡动画 */
+		}
+
+		.a {
+			width: calc(50% - 20px);
+			transition: width 1s ease-in-out; /* 添加过渡动画 */
+		}
+	}
+
+	@media (max-width: 800px) {
+		.projectItem {
+			padding: 10px;
+			transition: padding 1s ease-in-out;
+		}
+
+		.a {
+			height: 110px;
+			margin: 8px 15px;
+			width: calc(100% - 30px);
+			transition: height 1s ease-in-out, margin 1s ease-in-out,
+				width 1s ease-in-out;
+		}
+		.projectItemLeft p {
+			font-size: 13px;
+			margin-left: 5px;
+			transition: font-size 1s ease-in-out;
+		}
+
+		.projectItemLeft h1 {
+			font-size: 18px;
+			margin-top: 10px;
+			margin-left: 5px;
+			transition: font-size 1s ease-in-out;
+		}
+
+		.projectItem:hover h1 {
+			font-size: 20px;
+
+			transition: font-size 1s ease-in-out;
+		}
 	}
 </style>

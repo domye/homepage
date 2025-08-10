@@ -169,4 +169,10 @@
 			background-position: 100%;
 		}
 	}
+	@media (max-width: 800px) {
+		.container-right {
+			width: 100%;
+			transition: width 1s ease-in-out;
+		}
+	}
 </style>

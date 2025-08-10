@@ -46,4 +46,11 @@
 	.container-left::-webkit-scrollbar {
 		display: none;
 	}
+
+	@media (max-width: 800px) {
+		.container-left {
+			display: none;
+			opacity: 0;
+		}
+	}
 </style>
