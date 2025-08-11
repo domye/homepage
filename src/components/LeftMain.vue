@@ -9,7 +9,7 @@
 
 <script>
 	import LeftLogo from "./Left/LeftLogo.vue";
-	import LeftDec from "./Left/LeftDec.vue";
+	import LeftDec from "./Left/LeftDesc.vue";
 	import LeftTag from "./Left/LeftTag.vue";
 	import LeftTime from "./Left/LeftTime.vue";
 	export default {

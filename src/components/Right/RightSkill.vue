@@ -1,20 +1,30 @@
 <template>
 	<div class="skill">
-		<img
-			id="skillPc"
-			src="https://skillicons.dev/icons?i=windows,ubuntu,vscode,java,js,spring,redis,mysql,html,css,js,vue,docker,git,github,nginx,md,nodejs,npm,ps,sublime,webpack,yarn,linux&perline=20"
-		/>
-		<img
-			id="skillWap"
-			src="https://skillicons.dev/icons?i=windows,ubuntu,vscode,java,js,spring,redis,mysql,html,css,js,vue,docker,git,github,nginx,md,nodejs,npm,ps,sublime,webpack,yarn,linux&perline=9"
-		/>
+		<img id="skillPc" :src="skillIconsPc" />
+		<img id="skillWap" :src="skillIconsWap" />
 	</div>
 </template>
 
 <script>
-	export default {};
+	export default {
+		data() {
+			return {
+				skills:
+					"windows,ubuntu,vscode,java,js,spring,redis,mysql,html,css,js,vue,docker,git,github,nginx,md,nodejs,npm,ps,sublime,webpack,yarn,linux",
+				iconsPerLinePc: 20,
+				iconsPerLineWap: 9,
+			};
+		},
+		computed: {
+			skillIconsPc() {
+				return `https://skillicons.dev/icons?i=${this.skills}&perline=${this.iconsPerLinePc}`;
+			},
+			skillIconsWap() {
+				return `https://skillicons.dev/icons?i=${this.skills}&perline=${this.iconsPerLineWap}`;
+			},
+		},
+	};
 </script>
-
 <style>
 	.skill {
 		padding: 5px;

@@ -1,22 +1,20 @@
 <template>
-	<div>
-		<div class="projectList">
-			<a
-				v-for="(item, index) in data"
-				class="projectItem a"
-				target="_self"
-				:href="item.url"
-				:key="index"
-			>
-				<div class="projectItemLeft">
-					<h1>{{ item.title }}</h1>
-					<p>{{ item.desc }}</p>
-				</div>
-				<div class="projectItemRight">
-					<img :src="item.img" alt="" />
-				</div>
-			</a>
-		</div>
+	<div class="projectList">
+		<a
+			v-for="(item, index) in data"
+			class="projectItem a"
+			target="_self"
+			:href="item.url"
+			:key="index"
+		>
+			<div class="projectItemLeft">
+				<h1>{{ item.title }}</h1>
+				<p>{{ item.desc }}</p>
+			</div>
+			<div class="projectItemRight">
+				<img :src="item.img" alt="" />
+			</div>
+		</a>
 	</div>
 </template>
 
@@ -33,10 +31,9 @@
 	.projectList {
 		display: flex;
 		flex-wrap: wrap;
+		width: 100%;
 	}
 	.projectItem {
-		position: relative; /* 为绝对定位子元素提供参考 */
-		overflow: hidden; /* 隐藏溢出的部分 */
 		margin: 7px;
 		display: flex;
 		background-color: var(--item_bg_color);
@@ -67,7 +64,7 @@
 	.projectItemLeft {
 		/* 过渡效果中去掉width */
 		height: 100%;
-		width: 100%; /* 因为右侧绝对定位，所以左侧直接100% */
+		width: 80%; /* 因为右侧绝对定位，所以左侧直接100% */
 		transition: none; /* 因为我们不再改变宽度，所以移除过渡 */
 	}
 	.projectItemRight {

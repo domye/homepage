@@ -6,36 +6,31 @@
 			<right-switch></right-switch>
 		</div>
 		<right-snake></right-snake>
-		<right-title :page="title[0]"></right-title>
-		<right-project :data="website"></right-project>
-		<right-title :page="title[1]"></right-title>
-		<right-project :data="project"></right-project>
-		<right-title :page="title[2]"></right-title>
-		<right-skill></right-skill>
+		<right-tab></right-tab>
+		<transition name="fade" mode="out-in">
+			<router-view></router-view>
+		</transition>
 	</div>
 </template>
 
 <script>
-	import RightDec from "./Right/RightDec.vue";
+	import RightDec from "./Right/RightDesc.vue";
 	import RightIcon from "./Right/RightIcon.vue";
 	import RightSnake from "./Right/RightSnake.vue";
 	import RightSwitch from "./Right/RightSwitch.vue";
 	import svg from "@/assets/svg.json";
-	import RightProject from "./Right/RightProject.vue";
-	import RightTitle from "./Right/RightTitle.vue";
-	import RightSkill from "./Right/RightSkill.vue";
+	import RightTab from "./Right/RightTab.vue";
 	export default {
 		components: {
 			RightDec,
 			RightIcon,
 			RightSwitch,
 			RightSnake,
-			RightProject,
-			RightTitle,
-			RightSkill,
+			RightTab,
 		},
 		data() {
 			return {
+				transitionName: "slide-left",
 				icon: [
 					{
 						tip: "Github",
@@ -57,60 +52,6 @@
 						tip: "博客",
 						url: "https://blog.domye.top",
 						svg: svg.blog,
-					},
-				],
-				website: [
-					{
-						title: "月下·闲庭",
-						url: "https://blog.domye.top",
-						desc: "我的技术博客",
-						img: require("../assets/img/i1.png"),
-					},
-					{
-						title: "月下·墨箱",
-						url: "https://blog.domye.top",
-						desc: "个人搭建的图床",
-						img: require("../assets/img/i2.png"),
-					},
-				],
-				project: [
-					{
-						title: "苍穹外卖",
-						url: "",
-						desc: "Springboot项目",
-						img: require("../assets/img/i3.png"),
-					},
-					{
-						title: "黑马点评",
-						url: "",
-						desc: "Java后端项目",
-						img: require("../assets/img/i4.png"),
-					},
-					{
-						title: "开源项目",
-						url: "https://github.com/domye/homepage",
-						desc: "我做的开源项目分享",
-						img: require("../assets/img/i5.png"),
-					},
-					{
-						title: "本站源码",
-						url: "",
-						desc: "本网站完整的源代码",
-						img: require("../assets/img/i6.png"),
-					},
-				],
-				title: [
-					{
-						title: "我的网站",
-						svg: svg.website,
-					},
-					{
-						title: "我的项目",
-						svg: svg.project,
-					},
-					{
-						title: "技术栈",
-						svg: svg.skill,
 					},
 				],
 			};
@@ -139,40 +80,21 @@
 	.iconContainer::-webkit-scrollbar {
 		display: none;
 	}
-	@keyframes zoom {
-		0% {
-			transform: scale(0);
-			opacity: 1;
-		}
-		50% {
-			opacity: 0.5;
-		}
-		100% {
-			transform: scale(1);
-			opacity: 0;
-		}
-	}
-	@keyframes backgroundSizeAnimation {
-		0% {
-			background-position: 100%;
-		}
-		25% {
-			background-position: 50%;
-		}
-		50% {
-			background-position: 0%;
-		}
-		75% {
-			background-position: 50%;
-		}
-		100% {
-			background-position: 100%;
-		}
-	}
+
 	@media (max-width: 800px) {
 		.container-right {
 			width: 100%;
 			transition: width 1s ease-in-out;
 		}
+	} /* 滑动动画 */
+	/* 定义过渡动画 */
+	.fade-enter-active,
+	.fade-leave-active {
+		transition: opacity 0.8s cubic-bezier(0.47, 0, 0.745, 0.715); /* 延长过渡时间并使用自定义缓动函数 */
+	}
+
+	.fade-enter,
+	.fade-leave-to {
+		opacity: 0;
 	}
 </style>

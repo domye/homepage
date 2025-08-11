@@ -47,7 +47,7 @@
 		--main_text_color: #eeeeee;
 		--purple_text_color: #ffffff;
 		--text_bg_color: #00000040;
-		--item_bg_color: #00000038;
+		--item_bg_color: #0000001c;
 		--item_hover_color: #33333338;
 		--item_left_title_color: #ffffff;
 		--item_left_text_color: #ffffff;
@@ -63,7 +63,7 @@
 		margin: 0;
 		padding: 0;
 		box-sizing: border-box;
-		transition: background-color 0.2s ease;
+		transition: background-color 1s ease;
 		word-wrap: break-word;
 	}
 	a:hover,
@@ -92,13 +92,13 @@
 			linear-gradient(50deg, #a2d0ff, #ffffff)
 		);
 	}
-	/* .main {
+	.main {
 		width: 100%;
 		transition: transform 1s ease;
 		max-width: 1150px;
 		position: relative;
 		flex-direction: row;
-	} */
+	}
 	#app {
 		display: flex;
 		height: 100%;
