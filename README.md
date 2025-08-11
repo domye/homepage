@@ -28,10 +28,7 @@
 
 ## 📸 项目截图
 
-![Pc端主页](https://cdn.domye.top/uploads/08/1754907086.webp)
-![Pc端介绍页面](https://cdn.domye.top/uploads/08/1754906992.webp)
-![Pc端FAQ页面](https://cdn.domye.top/uploads/08/1754906993.webp)
-![移动端](https://cdn.domye.top/uploads/08/1754906991.webp)
+ <table>    <tr>      <td><img src="https://cdn.domye.top/uploads/08/1754907086.webp" alt="Pc端主页" width="400"></td>      <td><img src="https://cdn.domye.top/uploads/08/1754906993.webp" alt="Pc端介绍页面" width="400"></td>    </tr>    <tr>      <td><img src="https://cdn.domye.top/uploads/08/1754906992.webp" alt="Pc端FAQ页面" width="400"></td>      <td><img src="https://cdn.domye.top/uploads/08/1754906991.webp" alt="移动端" width="400"></td>    </tr>  </table>
 
 ## 📁 目录结构说明
 
