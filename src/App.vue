@@ -101,6 +101,7 @@
 		position: relative;
 		flex-direction: row;
 	}
+
 	#app {
 		display: flex;
 		height: 100%;
