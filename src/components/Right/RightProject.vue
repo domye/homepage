@@ -345,6 +345,7 @@
 		opacity: 0.2;
 		background: var(--item_bg_color);
 	}
+
 	.buttom-sheet .content {
 		width: 100%;
 		position: relative;
