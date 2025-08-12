@@ -1,4 +1,4 @@
-name: Deploy Vue2 to BT Panel
+name: CI/CD Deployment
 
 on:
   push:
@@ -7,30 +7,43 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+    # 1. 检出代码
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
+    # 2. 设置Node环境
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '16'  # Vue2 推荐版本
+        node-version: '20'
 
+    # 3. 安装依赖
     - name: Install dependencies
-      run: npm install
+      run: npm ci  # 使用ci确保依赖版本锁定
 
+    # 4. 项目构建
     - name: Build project
-      run: npm run build  # 生成 dist 目录
+      run: npm run build
+      env:
+        VITE_API_BASE: ${{ secrets.API_BASE_URL }}  # 注入环境变量
 
-    - name: Deploy to Server
+    # 5. SSH密钥配置
+    - name: Setup SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -p ${{ secrets.SSH_PORT }} ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+
+    # 6. 部署到服务器
+    - name: Deploy to Production
       uses: easingthemes/ssh-deploy@v2.2.11
       with:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         REMOTE_HOST: ${{ secrets.SERVER_IP }}
         REMOTE_USER: ${{ secrets.SERVER_USER }}
         REMOTE_PORT: ${{ secrets.SSH_PORT }}
-        SOURCE: "dist/"  # 构建产物目录
-        TARGET: ${{ secrets.TARGET_DIR }}
-        ARGS: "-avz --delete"  # 同步并删除旧文件
-        EXCLUDE: "node_modules/"  # 排除目录
+        SOURCE: dist/  # 构建输出目录
+        TARGET: ${{ secrets.TARGET_DIR }}  # 服务器目标目录
+        ARGS: "-avz --delete --exclude='*.tmp'"
