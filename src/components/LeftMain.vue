@@ -27,24 +27,6 @@
 				containerHeight: "100%",
 			};
 		},
-		mounted() {
-			window.addEventListener("scroll", this.handleScroll);
-		},
-		beforeDestroy() {
-			window.removeEventListener("scroll", this.handleScroll);
-		},
-		methods: {
-			handleScroll() {
-				// 使用 requestAnimationFrame 优化滚动性能
-				window.requestAnimationFrame(() => {
-					// 检查是否滚动到底部（减去 43px 的阈值）
-					const isBottom =
-						window.innerHeight + window.scrollY >=
-						document.body.offsetHeight - 43;
-					this.containerHeight = isBottom ? "calc(100% - 48px)" : "100%";
-				});
-			},
-		},
 	};
 </script>
 
@@ -60,15 +42,16 @@
 		background: var(--item_bg_color);
 	}
 	.container-left {
-		overflow-y: scroll;
+		/* 移除 overflow-y: scroll; */
 		width: 230px;
 		display: flex;
 		padding: 0 15px;
 		margin-bottom: 100px;
-		position: fixed;
+		position: sticky; /* 改为sticky定位 */
+		top: 0;
 		align-items: center;
 		flex-direction: column;
-		/* 添加过渡动画 */
+		height: 100%; /* 高度设为100% */
 		transition: height 0.4s ease;
 	}
 	.container-left::-webkit-scrollbar {

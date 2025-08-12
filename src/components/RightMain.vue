@@ -67,9 +67,10 @@
 		display: flex;
 		padding: 20px;
 		position: relative;
-		float: right;
+		/* 移除 float: right; */
 		padding-bottom: 50px;
 		flex-direction: column;
+		flex-grow: 1; /* 添加flex-grow */
 	}
 	.iconContainer {
 		width: 100%;

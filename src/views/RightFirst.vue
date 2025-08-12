@@ -45,8 +45,9 @@
 						desc: "Vue搭建的个人主页",
 						img: require("@/assets/img/i1-2.png"),
 						type: "博客",
-						github: "https://github.com/domye/homepage",
-						tag: "1,2,3",
+						github:
+							"1,3,32,2323231,32131231,312312312321,321321312312,lxsdsfdslf,dfdsfds,fdasfasd,fdasfds,l撒旦大神积分,的撒大,范德萨发发发,发大水发射点发2",
+						tag: "1,3,32,2323231,32131231,312312312321,321321312312",
 						author: "Domye",
 						intro: "可以用于简单的页面展示\n乐于分享",
 					},
