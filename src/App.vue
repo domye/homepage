@@ -94,6 +94,7 @@
 			linear-gradient(50deg, #a2d0ff, #ffffff)
 		);
 	}
+
 	.main {
 		width: 100%;
 		transition: transform 1s ease;
