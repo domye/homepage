@@ -1,0 +1,36 @@
+name: Deploy Vue2 to BT Panel
+
+on:
+  push:
+    branches: [ main ]  # 触发分支
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'  # Vue2 推荐版本
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build project
+      run: npm run build  # 生成 dist 目录
+
+    - name: Deploy to Server
+      uses: easingthemes/ssh-deploy@v2.2.11
+      with:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        REMOTE_HOST: ${{ secrets.SERVER_IP }}
+        REMOTE_USER: ${{ secrets.SERVER_USER }}
+        REMOTE_PORT: ${{ secrets.SSH_PORT }}
+        SOURCE: "dist/"  # 构建产物目录
+        TARGET: ${{ secrets.TARGET_DIR }}
+        ARGS: "-avz --delete"  # 同步并删除旧文件
+        EXCLUDE: "node_modules/"  # 排除目录
