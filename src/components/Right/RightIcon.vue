@@ -39,7 +39,7 @@
 		background: var(--item_bg_color);
 		align-items: center;
 		justify-content: center;
-		transition: width 1s ease, opacity 1s ease, transform 1s ease;
+		transition: width 0.5s ease, opacity 0.5s ease, transform 0.5s ease; /* 优化过渡时间 */
 		flex-shrink: 0;
 	}
 
@@ -47,7 +47,7 @@
 		width: 22px;
 		height: 22px;
 		fill: var(--fill);
-		transition: margin-right 1s ease;
+		transition: margin-right 0.5s ease; /* 优化过渡时间 */
 	}
 
 	.iconTip {
@@ -55,7 +55,7 @@
 		display: none;
 		opacity: 0;
 		transform: translateY(-10px);
-		transition: opacity 1s ease, transform 1s ease;
+		transition: opacity 0.5s ease, transform 0.5s ease-in-out; /* 优化过渡时间和缓动函数 */
 	}
 
 	.iconItem:hover {
@@ -71,6 +71,7 @@
 	.iconItem:hover .iconTip {
 		display: block;
 		opacity: 1;
-		transform: translateY(0);
+		transform: translateY(0) scale(1); /* 添加缩放效果 */
+		transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; /* 优化过渡时间和缓动函数 */
 	}
 </style>

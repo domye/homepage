@@ -30,7 +30,7 @@
 		width: 0px;
 		height: 3px;
 		background: #ffffffa4;
-		transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+		transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 		transform: translateX(-50%);
 	}
 

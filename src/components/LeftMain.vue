@@ -1,9 +1,10 @@
 <template>
-	<div class="container-left">
+	<div class="container-left" :style="{ height: containerHeight }">
 		<LeftLogo />
 		<LeftDec />
 		<LeftTag />
 		<LeftTime />
+		<left-talk></left-talk>
 	</div>
 </template>
 
@@ -12,12 +13,37 @@
 	import LeftDec from "./Left/LeftDesc.vue";
 	import LeftTag from "./Left/LeftTag.vue";
 	import LeftTime from "./Left/LeftTime.vue";
+	import LeftTalk from "./Left/LeftTalk.vue";
 	export default {
 		components: {
 			LeftLogo,
 			LeftDec,
 			LeftTag,
 			LeftTime,
+			LeftTalk,
+		},
+		data() {
+			return {
+				containerHeight: "100%",
+			};
+		},
+		mounted() {
+			window.addEventListener("scroll", this.handleScroll);
+		},
+		beforeDestroy() {
+			window.removeEventListener("scroll", this.handleScroll);
+		},
+		methods: {
+			handleScroll() {
+				// 使用 requestAnimationFrame 优化滚动性能
+				window.requestAnimationFrame(() => {
+					// 检查是否滚动到底部（减去 43px 的阈值）
+					const isBottom =
+						window.innerHeight + window.scrollY >=
+						document.body.offsetHeight - 43;
+					this.containerHeight = isBottom ? "calc(100% - 48px)" : "100%";
+				});
+			},
 		},
 	};
 </script>
@@ -36,12 +62,14 @@
 	.container-left {
 		overflow-y: scroll;
 		width: 230px;
-		height: 100vh;
 		display: flex;
 		padding: 0 15px;
+		margin-bottom: 100px;
 		position: fixed;
 		align-items: center;
-		flex-direction: column; /* 设置弹性盒子的方向为垂直方向 */
+		flex-direction: column;
+		/* 添加过渡动画 */
+		transition: height 0.4s ease;
 	}
 	.container-left::-webkit-scrollbar {
 		display: none;

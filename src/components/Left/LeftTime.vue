@@ -30,7 +30,7 @@
 <style>
 	#line {
 		width: 100%;
-		max-height: 700px;
+		max-height: 200px;
 		font-size: 13px;
 		padding-left: 8px;
 		scroll-snap-type: y mandatory;
@@ -62,8 +62,5 @@
 	}
 	#line::-webkit-scrollbar {
 		display: none;
-	}
-	.left-time {
-		margin-bottom: 100px;
 	}
 </style>

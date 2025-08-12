@@ -34,9 +34,9 @@
 		);
 	}
 	.welcome {
-		font-size: 50px;
+		font-size: 55px;
 		font-weight: 800;
-		margin: 20px 0;
+		margin-top: 40px;
 	}
 	.description {
 		font-size: 20px;

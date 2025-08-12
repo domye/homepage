@@ -15,7 +15,7 @@
 <style>
 	.logo {
 		flex-shrink: 0;
-		width: 65%;
+		width: 80%;
 		position: relative;
 		aspect-ratio: 1/1;
 		margin-top: 50px;

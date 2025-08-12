@@ -42,6 +42,7 @@
 		--back_filter: 0px;
 		--back_filter_color: #000000;
 		--fill: #ffffff;
+		--box_bg_color: #161616;
 	}
 	html {
 		--main_text_color: #eeeeee;
@@ -57,6 +58,7 @@
 		--back_filter: 68px;
 		--back_filter_color: #00000060;
 		--fill: #ffffff;
+		--box_bg_color: #00000036;
 	}
 
 	* {

@@ -22,12 +22,33 @@
 		},
 		data() {
 			return {
+				title: [
+					{
+						title: "我的网站",
+						svg: svg.website,
+					},
+					{
+						title: "我的项目",
+						svg: svg.project,
+					},
+					{
+						title: "技术栈",
+						svg: svg.skill,
+					},
+				],
+
+				//我的网站
 				website: [
 					{
 						title: "月下·传舍",
 						url: "https://www.domye.top",
 						desc: "Vue搭建的个人主页",
 						img: require("@/assets/img/i1-2.png"),
+						type: "博客",
+						github: "https://github.com/domye/homepage",
+						tag: "1,2,3",
+						author: "Domye",
+						intro: "可以用于简单的页面展示\n乐于分享",
 					},
 					{
 						title: "月下·闲庭",
@@ -42,6 +63,8 @@
 						img: require("@/assets/img/i2.png"),
 					},
 				],
+
+				//我的项目
 				project: [
 					{
 						title: "苍穹外卖",
@@ -66,20 +89,6 @@
 						url: "https://github.com/domye/homepage",
 						desc: "本网站完整的源代码",
 						img: require("@/assets/img/i6.png"),
-					},
-				],
-				title: [
-					{
-						title: "我的网站",
-						svg: svg.website,
-					},
-					{
-						title: "我的项目",
-						svg: svg.project,
-					},
-					{
-						title: "技术栈",
-						svg: svg.skill,
 					},
 				],
 			};
