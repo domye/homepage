@@ -1,14 +1,13 @@
 <template>
 	<div id="app">
 		<div class="background"></div>
-		<div class="main">
+		<div class="main" ref="mainContainer">
 			<LeftMain></LeftMain>
 			<right-main></right-main>
 		</div>
 		<footer-main></footer-main>
 	</div>
 </template>
-
 <script>
 	import FooterMain from "./components/FooterMain.vue";
 	import LeftMain from "./components/LeftMain.vue";
@@ -100,6 +99,9 @@
 		max-width: 1150px;
 		position: relative;
 		flex-direction: row;
+		display: flex; /* 添加flex布局 */
+		overflow-y: auto; /* 启用滚动 */
+		height: 100%;
 	}
 	#app {
 		display: flex;
@@ -127,5 +129,10 @@
 		backdrop-filter: blur(var(--back_filter));
 		-webkit-backdrop-filter: blur(var(--back_filter));
 		z-index: -99;
+	}
+	/* 移除左右容器的独立滚动 */
+	.container-left,
+	.container-right {
+		overflow-y: visible !important;
 	}
 </style>

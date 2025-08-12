@@ -30,37 +30,36 @@
 				</div>
 				<div class="body">
 					<!-- 豆瓣风格布局 -->
-					<div class="project-detail">
-						<div class="detail-left">
+					<div class="douban-layout">
+						<div class="cover-container">
 							<img
 								:src="currentItem.img"
 								alt="项目封面"
 								class="project-cover"
 							/>
 						</div>
-						<div class="detail-right">
-							<h2>{{ currentItem.title }}</h2>
-							<div class="meta-info">
-								<span v-if="currentItem.type" class="meta-item">
-									{{ currentItem.type }}
-								</span>
-								<span v-if="currentItem.author" class="meta-item">
-									{{ currentItem.author }}
-								</span>
-								<span v-if="currentItem.desc" class="meta-item">
-									{{ currentItem.desc }}
-								</span>
-							</div>
-							<div class="action-buttons">
+						<div class="info-container">
+							<div class="title-row">
+								<h2>{{ currentItem.title }}</h2>
 								<a
 									v-if="currentItem.link"
 									:href="currentItem.link"
-									class="project-link"
+									class="external-link"
 									target="_self"
 									@click.stop
 								>
-									访问项目
+									<svg viewBox="0 0 24 24" width="20" height="20">
+										<path
+											fill="currentColor"
+											d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z"
+										/>
+									</svg>
 								</a>
+							</div>
+							<div class="desc-row">
+								<p>{{ currentItem.desc }}</p>
+							</div>
+							<!-- <div>
 								<a
 									v-if="currentItem.github"
 									:href="currentItem.github"
@@ -68,11 +67,50 @@
 									target="_self"
 									@click.stop
 								>
-									GitHub仓库
+									No.1的个人博客
 								</a>
+							</div> -->
+							<div class="tech-tags">
+								<span
+									v-for="(tech, index) in currentItem.tech.split(',')"
+									:key="index"
+									class="tech-tag"
+								>
+									{{ tech.trim() }}
+								</span>
+							</div>
+							<div class="meta-row">
+								<span v-if="currentItem.type" class="meta-item">
+									{{ currentItem.type }}
+								</span>
+								<span v-if="currentItem.author" class="meta-item">
+									{{ currentItem.author }}
+								</span>
 							</div>
 						</div>
 					</div>
+
+					<!-- 操作按钮 -->
+					<!-- <div class="action-buttons">
+						<a
+							v-if="currentItem.link"
+							:href="currentItem.link"
+							class="project-link"
+							target="_self"
+							@click.stop
+						>
+							访问项目
+						</a>
+						<a
+							v-if="currentItem.github"
+							:href="currentItem.github"
+							class="github-link"
+							target="_self"
+							@click.stop
+						>
+							GitHub仓库
+						</a>
+					</div> -->
 
 					<!-- 详细描述 -->
 					<div class="project-description" v-if="currentItem.content">
@@ -86,18 +124,18 @@
 					</div>
 
 					<!-- 技术栈 -->
-					<div class="tech-stack" v-if="currentItem.tech">
+					<!-- <div class="tech-stack" v-if="currentItem.github">
 						<h3>标签</h3>
-						<div class="tech-tags">
+						<div class="techs">
 							<span
-								v-for="(tech, index) in currentItem.tech.split(',')"
+								v-for="(tech, index) in currentItem.github.split(',')"
 								:key="index"
-								class="tech-tag"
+								class="tech"
 							>
 								{{ tech.trim() }}
 							</span>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>
@@ -124,7 +162,6 @@
 					author: "",
 					desc: "",
 					link: "",
-					github: "",
 					tech: "",
 				},
 			};
@@ -139,7 +176,6 @@
 					author: item.author || "",
 					desc: item.desc || "",
 					link: item.url || "",
-					github: item.github || "",
 					tech: item.tag || "",
 				};
 				this.isModalVisible = true;
@@ -186,9 +222,6 @@
 					this.updateSheetHeight(60);
 				}
 			},
-			openLink(url) {
-				window.open(url, "_self");
-			},
 		},
 		mounted() {
 			document.addEventListener("mousemove", this.dragging);
@@ -206,6 +239,21 @@
 </script>
 
 <style scoped>
+	.techs {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 6px;
+	}
+
+	.tech {
+		display: inline-block;
+		padding: 3px 6px;
+		background-color: #f0f0f0;
+		border-radius: 3px;
+		font-size: 13px;
+		color: #333;
+		margin-bottom: 6px;
+	}
 	/* 项目列表样式 */
 	.projectList {
 		display: flex;
@@ -391,71 +439,104 @@
 		height: 100%;
 		overflow-y: auto;
 		padding: 15px 0 40px;
+		padding: 24px 48px 0 40px;
 		scrollbar-width: none;
 	}
 	.buttom-sheet .body::-webkit-scrollbar {
 		width: 0;
 	}
 
-	/* 豆瓣风格弹窗内容 */
-	.project-detail {
+	/* 豆瓣风格布局 */
+	.douban-layout {
 		display: flex;
 		margin-bottom: 20px;
 	}
 
-	.detail-left {
-		flex: 0 0 150px;
-		margin-right: 30px;
-		margin-left: 20px;
+	.cover-container {
+		flex: 0 0 120px;
+		margin-right: 20px;
 	}
 
 	.project-cover {
-		width: 100%;
-		border-radius: 8px;
-		box-shadow: 0 5px 20px rgba(0, 0, 0, 0.45);
-		transition: transform 0.3s ease;
+		width: 120px;
+		height: 160px;
+		object-fit: cover;
+		border-radius: 4px;
+		margin-left: 10px;
+		box-shadow: 5px 7px 11px 3px rgb(0 0 0 / 57%);
 	}
 
-	.project-cover:hover {
-		transform: scale(1.02);
-	}
-
-	.detail-right {
+	.info-container {
 		flex: 1;
+		display: flex;
+		flex-direction: column;
+		margin-left: 10px;
+	}
+	.meta-row {
+		margin-top: 10px;
+	}
+	.title-row {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		margin-bottom: 8px;
 	}
 
-	.detail-right h2 {
-		font-size: 24px;
-		margin: 0 0 10px 0;
-		color: #ffffff;
+	.title-row h2 {
+		font-size: 22px;
+		margin: 0;
+		color: var(--text-color);
+		font-weight: 500;
+		line-height: 1.3;
 	}
 
-	.meta-info {
-		margin: 15px 0;
-		color: #ffffff;
+	.external-link {
+		color: var(--text-color);
+		opacity: 0.7;
+		transition: opacity 0.2s;
+		margin-left: 10px;
+	}
+
+	.external-link:hover {
+		opacity: 1;
+	}
+
+	.desc-row {
+		margin-bottom: 12px;
+	}
+
+	.desc-row p {
+		margin: 0;
 		font-size: 14px;
-		line-height: 1.6;
+		color: var(--text-color);
+		line-height: 1.5;
+		opacity: 0.9;
 	}
 
 	.meta-item {
-		display: inline-block;
-		margin-right: 20px;
+		font-size: 13px;
+		color: var(--text-color);
+		opacity: 0.7;
+		margin-right: 15px;
 		position: relative;
 	}
 
 	.meta-item:not(:last-child):after {
 		content: "•";
 		position: absolute;
-		right: -12px;
+		right: -10px;
 		top: 50%;
 		transform: translateY(-50%);
-		color: #ccc;
+		opacity: 0.5;
 	}
 
+	/* 操作按钮 */
 	.action-buttons {
 		display: flex;
 		gap: 12px;
-		margin-top: 20px;
+		margin: 20px 0;
+		padding-top: 15px;
+		border-top: 1px solid rgba(255, 255, 255, 0.1);
 	}
 
 	.project-link,
@@ -467,7 +548,6 @@
 		border-radius: 6px;
 		text-decoration: none;
 		font-size: 14px;
-		/* font-weight: 500; */
 		transition: all 0.3s ease;
 		cursor: pointer;
 	}
@@ -496,80 +576,63 @@
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	}
 
+	/* 详细描述 */
 	.project-description {
-		margin-top: 30px;
-		padding-top: 20px;
-		border-top: 1px solid #eee;
+		margin-top: 25px;
+		padding-top: 15px;
+		border-top: 1px solid rgba(255, 255, 255, 0.1);
 	}
 
 	.project-description h3 {
-		font-size: 18px;
-		margin-bottom: 15px;
-		color: #ffffff;
+		font-size: 16px;
+		margin-bottom: 12px;
+		color: var(--text-color);
+		font-weight: 500;
 	}
 
 	.project-description p {
-		line-height: 1.8;
-		color: #ffffff;
-		font-size: 15px;
-		margin: 0;
+		font-size: 14px;
+		line-height: 1.7;
+		color: var(--text-color);
+		opacity: 0.9;
+		margin-bottom: 10px;
 	}
 
+	/* 技术栈 */
 	.tech-stack {
 		margin-top: 25px;
-		padding-top: 20px;
-		border-top: 1px solid #eee;
+		padding-top: 15px;
+		border-top: 1px solid rgba(255, 255, 255, 0.1);
 	}
 
 	.tech-stack h3 {
-		font-size: 18px;
-		margin-bottom: 15px;
-		color: #ffffff;
+		font-size: 16px;
+		margin-bottom: 12px;
+		color: var(--text-color);
+		font-weight: 500;
 	}
 
 	.tech-tags {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 8px;
+		gap: 3px;
 	}
 
 	.tech-tag {
-		background-color: #f0f0f0;
-		color: #555;
+		background-color: rgba(255, 255, 255, 0.1);
+		color: var(--text-color);
 		padding: 4px 12px;
-		border-radius: 20px;
-		font-size: 13px;
-		transition: all 0.2s ease;
-	}
-
-	.tech-tag:hover {
-		background-color: #e0e0e0;
-		transform: translateY(-1px);
+		border-radius: 12px;
+		font-size: 12px;
+		display: inline-block;
+		margin-right: 3px;
+		margin-bottom: 8px;
 	}
 
 	/* 响应式调整 */
 	@media (max-width: 600px) {
-		.project-detail {
-			flex-direction: column;
-		}
-
-		.detail-left {
-			margin-right: 0;
-			margin-bottom: 20px;
-			text-align: center;
-		}
-
-		.project-cover {
-			max-width: 150px;
-			margin: 0 auto;
-		}
-
-		.action-buttons {
-			justify-content: center;
-		}
-
-		.buttom-sheet .content {
-			padding: 20px 15px;
+		.buttom-sheet .body {
+			padding: 15px 0 40px;
 		}
 	}
 </style>
