@@ -39,7 +39,7 @@
 		height: 100vh;
 		display: flex;
 		padding: 0 15px;
-		position: fixed; /* 设置组件的位置为固定，不随页面滚动 */
+		position: fixed;
 		align-items: center;
 		flex-direction: column; /* 设置弹性盒子的方向为垂直方向 */
 	}

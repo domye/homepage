@@ -8,7 +8,9 @@
 		<right-snake></right-snake>
 		<right-tab></right-tab>
 		<transition name="fade" mode="out-in">
-			<router-view></router-view>
+			<keep-alive>
+				<router-view></router-view>
+			</keep-alive>
 		</transition>
 	</div>
 </template>

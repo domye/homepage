@@ -63,4 +63,7 @@
 	#line::-webkit-scrollbar {
 		display: none;
 	}
+	.left-time {
+		margin-bottom: 100px;
+	}
 </style>

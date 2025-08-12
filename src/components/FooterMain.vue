@@ -56,6 +56,7 @@
 		color: #fff;
 		line-height: 15px;
 		overflow-wrap: break-word; /* 添加此行 */
+		white-space: nowrap; /* 防止文字换行 */
 	}
 	.github-badge .badge-subject {
 		display: inline-block;
@@ -87,7 +88,7 @@
 		background-color: #497e75;
 	}
 	@media (max-width: 800px) {
-		.github-badge-right {
+		.github-badge-mobile {
 			display: none;
 		}
 	}
