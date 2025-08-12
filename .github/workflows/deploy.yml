@@ -29,12 +29,27 @@ jobs:
         VITE_API_BASE: ${{ secrets.API_BASE_URL }}  # 注入环境变量
 
     # 5. SSH密钥配置
+
+    # 关键修复：使用更可靠的SSH配置方法
     - name: Setup SSH
       run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -p ${{ secrets.SSH_PORT }} ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+        # 1. 确保.ssh目录存在且权限正确
+        install -d -m 700 ~/.ssh
+        
+        # 2. 安全写入私钥（修复格式问题）
+        install -m 600 -D /dev/null ~/.ssh/id_rsa
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" | tr -d '\r' > ~/.ssh/id_rsa
+        
+        # 3. 验证端口号有效性
+        PORT=${{ secrets.SSH_PORT }}
+        if ! [[ $PORT =~ ^[0-9]+$ ]] || [ $PORT -lt 1 ] || [ $PORT -gt 65535 ]; then
+          echo "错误：无效端口号 '$PORT'"
+          exit 1
+        fi
+        
+        # 4. 安全添加主机到known_hosts
+        ssh-keyscan -p $PORT ${{ secrets.SERVER_IP }} > ~/.ssh/known_hosts 2>/dev/null
+        chmod 644 ~/.ssh/known_hosts
 
     # 6. 部署到服务器
     - name: Deploy to Production
