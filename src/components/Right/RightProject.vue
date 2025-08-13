@@ -4,7 +4,7 @@
 		<div class="projectList">
 			<a
 				v-for="(item, index) in data"
-				class="projectItem a"
+				class="projectItem"
 				href="javascript:void(0);"
 				@click="showModal(item)"
 				:key="index"
@@ -20,7 +20,10 @@
 		</div>
 
 		<!-- 底部弹窗 -->
-		<div class="buttom-sheet" :class="{ show: isModalVisible }">
+		<div
+			class="buttom-sheet"
+			:class="{ show: isModalVisible, dragging: isDragging }"
+		>
 			<div class="sheet-overlay" @click="hideModal"></div>
 			<div class="content">
 				<div class="header">
@@ -103,7 +106,6 @@
 		</div>
 	</div>
 </template>
-
 <script>
 	export default {
 		props: {
@@ -164,7 +166,6 @@
 				this.startY = e.pageY || e.touches?.[0].pageY;
 				const sheetContent = this.$el.querySelector(".content");
 				this.startHeight = parseInt(sheetContent.style.height) || 60;
-				this.$el.querySelector(".buttom-sheet").classList.add("dragging");
 			},
 			dragging(e) {
 				if (!this.isDragging) return;
@@ -174,7 +175,6 @@
 			},
 			dragStop() {
 				this.isDragging = false;
-				this.$el.querySelector(".buttom-sheet").classList.remove("dragging");
 				const sheetContent = this.$el.querySelector(".content");
 				const sheetHeight = parseInt(sheetContent.style.height);
 
@@ -186,14 +186,31 @@
 					this.updateSheetHeight(60);
 				}
 			},
-			openLink(url) {
-				window.open(url, "_self");
+			throttle(func, limit) {
+				let lastFunc;
+				let lastRan;
+				return function () {
+					const context = this;
+					const args = arguments;
+					if (!lastRan) {
+						func.apply(context, args);
+						lastRan = Date.now();
+					} else {
+						clearTimeout(lastFunc);
+						lastFunc = setTimeout(function () {
+							if (Date.now() - lastRan >= limit) {
+								func.apply(context, args);
+								lastRan = Date.now();
+							}
+						}, limit - (Date.now() - lastRan));
+					}
+				};
 			},
 		},
 		mounted() {
-			document.addEventListener("mousemove", this.dragging);
+			document.addEventListener("mousemove", this.throttle(this.dragging, 10));
 			document.addEventListener("mouseup", this.dragStop);
-			document.addEventListener("touchmove", this.dragging);
+			document.addEventListener("touchmove", this.throttle(this.dragging, 10));
 			document.addEventListener("touchend", this.dragStop);
 		},
 		beforeDestroy() {
@@ -204,7 +221,6 @@
 		},
 	};
 </script>
-
 <style scoped>
 	/* 项目列表样式 */
 	.projectList {
@@ -281,7 +297,7 @@
 			margin: 10px;
 			transition: margin 1s ease-in-out;
 		}
-		.a {
+		.projectItem {
 			width: calc(50% - 20px);
 			transition: width 1s ease-in-out;
 		}
@@ -291,7 +307,7 @@
 			padding: 10px;
 			transition: padding 1s ease-in-out;
 		}
-		.a {
+		.projectItem {
 			height: 110px;
 			margin: 8px 15px;
 			width: calc(100% - 30px);
@@ -345,7 +361,6 @@
 		opacity: 0.2;
 		background: var(--item_bg_color);
 	}
-
 	.buttom-sheet .content {
 		width: 100%;
 		position: relative;
@@ -358,11 +373,11 @@
 		transform: translateY(100%);
 		border-radius: 15px 15px 0 0;
 		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-		transition: 0.3s ease;
+		transition: transform 0.3s ease-out, opacity 0.1s linear; /* 优化动画流畅性和速度 */
 	}
-
 	.buttom-sheet.show .content {
 		transform: translateY(0%);
+		opacity: 1; /* 添加透明度变化以增加动画效果 */
 	}
 	.buttom-sheet.dragging .content {
 		transition: none;
@@ -403,47 +418,39 @@
 		display: flex;
 		margin-bottom: 20px;
 	}
-
 	.detail-left {
 		flex: 0 0 150px;
 		margin-right: 30px;
-		margin-left: 20px;
+		margin-left: 10px;
 	}
-
 	.project-cover {
 		width: 100%;
 		border-radius: 8px;
 		box-shadow: 0 5px 20px rgba(0, 0, 0, 0.45);
 		transition: transform 0.3s ease;
 	}
-
 	.project-cover:hover {
 		transform: scale(1.02);
 	}
-
 	.detail-right {
 		flex: 1;
 	}
-
 	.detail-right h2 {
 		font-size: 24px;
 		margin: 0 0 10px 0;
 		color: #ffffff;
 	}
-
 	.meta-info {
 		margin: 15px 0;
 		color: #ffffff;
 		font-size: 14px;
 		line-height: 1.6;
 	}
-
 	.meta-item {
 		display: inline-block;
 		margin-right: 20px;
 		position: relative;
 	}
-
 	.meta-item:not(:last-child):after {
 		content: "•";
 		position: absolute;
@@ -452,13 +459,11 @@
 		transform: translateY(-50%);
 		color: #ccc;
 	}
-
 	.action-buttons {
 		display: flex;
 		gap: 12px;
 		margin-top: 20px;
 	}
-
 	.project-link,
 	.github-link {
 		display: inline-flex;
@@ -468,87 +473,74 @@
 		border-radius: 6px;
 		text-decoration: none;
 		font-size: 14px;
-		/* font-weight: 500; */
 		transition: all 0.3s ease;
 		cursor: pointer;
 	}
-
 	.project-link {
 		background-color: #007bff93;
 		color: white;
 		border: 1px solid #007bff88;
 	}
-
 	.github-link {
 		background-color: #f5f5f5;
 		color: #333;
 		border: 1px solid #ddd;
 	}
-
 	.project-link:hover {
 		background-color: #0069d9;
 		transform: translateY(-2px);
 		box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
 	}
-
 	.github-link:hover {
 		background-color: #e9e9e9;
 		transform: translateY(-2px);
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	}
-
 	.project-description {
 		margin-top: 30px;
 		padding-top: 20px;
 		border-top: 1px solid #eee;
 	}
-
 	.project-description h3 {
 		font-size: 18px;
 		margin-bottom: 15px;
 		color: #ffffff;
 	}
-
 	.project-description p {
 		line-height: 1.8;
 		color: #ffffff;
 		font-size: 15px;
 		margin: 0;
 	}
-
 	.tech-stack {
 		margin-top: 25px;
 		padding-top: 20px;
 		border-top: 1px solid #eee;
 	}
-
 	.tech-stack h3 {
 		font-size: 18px;
 		margin-bottom: 15px;
 		color: #ffffff;
 	}
-
 	.tech-tags {
 		display: flex;
 		flex-wrap: wrap;
 		gap: 8px;
 	}
-
 	.tech-tag {
 		background-color: #f0f0f0;
 		color: #555;
 		padding: 4px 12px;
 		border-radius: 20px;
 		font-size: 13px;
-		transition: all 0.2s ease;
+		transition: transform 0.2s ease-out, background-color 0.2s ease-out,
+			box-shadow 0.2s ease-out; /* 优化动画效果 */
 	}
-
 	.tech-tag:hover {
 		background-color: #e0e0e0;
-		transform: translateY(-1px);
+		transform: translateY(-1px) scale(1.05); /* 缩放效果增加互动性 */
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
 	}
-
-	/* 响应式调整 */
 	@media (max-width: 600px) {
 		.project-detail {
 			flex-direction: column;
