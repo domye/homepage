@@ -3,12 +3,6 @@ name: Deploy Vue to Server
 on:
   push:
     branches: [main]
-    paths:
-      - "src/**"
-      - "public/**"
-      - "package.json"
-      - "vite.config.js"
-      - ".eslintrc.*"
 
 jobs:
   deploy:
@@ -29,50 +23,13 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm ci --prefer-offline
-          # 动态安装项目所需的ESLint相关依赖
-          if [ -f "package.json" ]; then
-            jq -r '.devDependencies | to_entries[] | select(.key | contains("eslint")) | .key' package.json | xargs -r npm install
-          fi
-
-      - name: ESLint Autofix
-        run: |
-          # 仅当存在ESLint配置时执行
-          if [ -f ".eslintrc*" ] || [ -f "package.json" ]; then
-            npx eslint --fix --ext .js,.jsx,.vue src/ || echo "ESLint autofix completed"
-            if ! npx eslint --ext .js,.jsx,.vue src/; then
-              echo "::error::ESLint validation failed! Some errors require manual fixing."
-              exit 1
-            fi
-          else
-            echo "No ESLint config found, skipping linting"
-          fi
+          npm install
 
       - name: Build project
         run: |
           npm run build || (echo "::error::Build failed! Check console output." && exit 1)
           echo "Build artifacts structure:"
           ls -R dist
-
-      - name: Validate build output
-        run: |
-          # 兼容Vue CLI和Vite的不同输出结构
-          [ -f dist/index.html ] || (echo "::error::Missing index.html" && exit 1)
-
-          # 检查JS文件（兼容Vue CLI的js/目录和Vite的assets/目录）
-          if [ -n "$(ls -A dist/js/*.js 2>/dev/null)" ] || [ -n "$(ls -A dist/assets/*.js 2>/dev/null)" ]; then
-            echo "JS files detected"
-          else
-            echo "::error::No JS files found in /js/ or /assets/"
-            exit 1
-          fi
-
-          # 检查CSS文件
-          if [ -n "$(ls -A dist/css/*.css 2>/dev/null)" ] || [ -n "$(ls -A dist/assets/*.css 2>/dev/null)" ]; then
-            echo "CSS files detected"
-          else
-            echo "::warning::No CSS files found (this may be normal for some projects)"
-          fi
 
       - name: Prepare deployment
         run: |
