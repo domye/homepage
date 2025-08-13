@@ -7,7 +7,8 @@ on:
       - 'src/**'
       - 'public/**'
       - 'package.json'
-      - 'vite.config.js' # 或 vue.config.js 如果使用Vue CLI
+      - 'vite.config.js'
+      - '.eslintrc.*'  # 监控ESLint配置变更
 
 jobs:
   deploy:
@@ -17,7 +18,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        
+        with:
+          fetch-depth: 0
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -25,23 +28,39 @@ jobs:
           cache: 'npm'
           
       - name: Install dependencies
-        run: npm ci
-        
-      - name: Build project
-        run: npm run build
-        
-      - name: Verify build output
         run: |
-          ls -la dist
-          [ -f dist/index.html ] || exit 1
+          npm ci --prefer-offline
+          # 额外安装ESLint插件（如果项目有自定义插件）
+          [ -f ".eslintrc" ] && npm install eslint-plugin-vue @typescript-eslint/eslint-plugin --save-dev || true
+
+      - name: ESLint Autofix
+        run: |
+          # 尝试自动修复问题
+          npx eslint --fix --ext .js,.vue src/ || echo "ESLint autofix completed (some issues may require manual fix)"
           
-      - name: Deploy via SFTP (Password)
+          # 验证是否还有错误（不自动修复的）
+          if npx eslint --ext .js,.vue src/; then
+            echo "ESLint validation passed"
+          else
+            echo "::error::ESLint validation failed! Some errors require manual fixing."
+            exit 1
+          fi
+
+      - name: Build project
+        run: |
+          npm run build || (echo "::error::Build failed! Check ESLint errors or build configuration." && exit 1)
+          
+      - name: Validate build output
+        run: |
+          [ -f dist/index.html ] || (echo "::error::Missing index.html" && exit 1)
+          [ -n "$(ls -A dist/assets/*.js 2>/dev/null)" ] || (echo "::error::Missing JS files" && exit 1)
+
+      - name: Deploy via SFTP
         uses: wangyucode/sftp-upload-action@v1.1
         with:
           host: ${{ secrets.SERVER_IP }}
-          port: ${{ secrets.SERVER_PORT || '22' }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           localDir: "dist"
           remoteDir: ${{ secrets.SERVER_DESTINATION }}
-          retry: 3 # 添加重试机制
+          retry: 3
