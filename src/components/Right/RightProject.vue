@@ -210,13 +210,13 @@
 		mounted() {
 			document.addEventListener("mousemove", this.throttle(this.dragging, 10));
 			document.addEventListener("mouseup", this.dragStop);
-			// document.addEventListener("touchmove", this.throttle(this.dragging, 10));
+			document.addEventListener("touchmove", this.throttle(this.dragging, 10));
 			document.addEventListener("touchend", this.dragStop);
 		},
 		beforeDestroy() {
 			document.removeEventListener("mousemove", this.dragging);
 			document.removeEventListener("mouseup", this.dragStop);
-			// document.removeEventListener("touchmove", this.dragging);
+			document.removeEventListener("touchmove", this.dragging);
 			document.removeEventListener("touchend", this.dragStop);
 		},
 	};
