@@ -1,4 +1,4 @@
-name: Deploy Vue to Server
+name: Deploy Vue to Server with Rsync (Password Auth)
 
 on:
   push:
@@ -12,8 +12,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -27,28 +25,34 @@ jobs:
 
       - name: Build project
         run: |
-          npm run build || (echo "::error::Build failed! Check console output." && exit 1)
-          echo "Build artifacts structure:"
-          ls -R dist
+          export NODE_OPTIONS=--max_old_space_size=4096
+          npm run build
+          # 检查构建文件是否完整
+          ls -lh dist/
+          tail -n 5 dist/js/app.*.js
 
-      - name: Prepare deployment
+      - name: Install rsync and sshpass (用于密码认证)
         run: |
-          # 确保目标目录存在
-          mkdir -p dist/.well-known
-          # 添加部署标记文件
-          echo "Deployed at $(date)" > dist/deployment.txt
+          sudo apt-get update
+          sudo apt-get install -y rsync sshpass
 
-      - name: Deploy via Rsync
-        uses: burnett01/rsync-deployments@5.2.3
+      - name: Deploy via Rsync (Password Auth)
+        run: |
+          # 使用 sshpass 传递密码
+          export SSHPASS=${{ secrets.SSH_PASSWORD }}
+          rsync -avzr --delete \
+            --rsh="sshpass -e ssh -o StrictHostKeyChecking=no -p ${{ secrets.SSH_PORT || '22' }}" \
+            ./dist/ \
+            ${{ secrets.USERNAME }}@${{ secrets.SERVER_IP }}:${{ secrets.SERVER_DESTINATION }}
+
+      - name: Verify deployment (可选)
+        uses: appleboy/ssh-action@v1.0.0
         with:
-          switches: -avzr --delete
-          path: dist/
-          remote_path: ${{ secrets.SERVER_DESTINATION }}
-          remote_host: ${{ secrets.SERVER_IP }}
-          remote_user: ${{ secrets.USERNAME }}
-          remote_pass: ${{ secrets.PASSWORD }}
-
-      - name: Post-deployment check
-        run: |
-          echo "Deployment completed at $(date -u)"
-          echo "Live site URL: http://${{ secrets.SERVER_IP }}/"
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            cd ${{ secrets.SERVER_DESTINATION }}
+            ls -lh js/
+            tail -n 5 js/app.*.js
+            echo "Deployment verification complete"
