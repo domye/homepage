@@ -11,7 +11,6 @@ jobs:
 
     steps:
       # 1. 检出代码仓库
-
       - name: Checkout repository
         uses: actions/checkout@v4 # 使用官方 Action 检出代码
 
