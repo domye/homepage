@@ -1,4 +1,4 @@
-name: Deploy Vue to Server with Rsync (Password Auth)
+name: Deploy Vue to Server
 
 on:
   push:
@@ -19,40 +19,52 @@ jobs:
           node-version: "18.x"
           cache: "npm"
 
+      - name: Clean cache
+        run: npm cache clean --force
+
       - name: Install dependencies
         run: |
           npm install
+          npm list vue # 验证vue版本
 
       - name: Build project
         run: |
           export NODE_OPTIONS=--max_old_space_size=4096
           npm run build
-          # 检查构建文件是否完整
-          ls -lh dist/
+          # 验证构建文件完整性
+          find dist -type f -exec ls -lh {} \;
+          # 检查特定文件是否完整
           tail -n 5 dist/js/app.*.js
 
-      - name: Install rsync and sshpass (用于密码认证)
+      - name: Prepare deployment
         run: |
-          sudo apt-get update
-          sudo apt-get install -y rsync sshpass
+          mkdir -p dist/.well-known
+          echo "Deployed at $(date)" > dist/deployment.txt
+          # 记录文件校验和
+          find dist -type f -exec md5sum {} \; > dist/checksums.txt
 
-      - name: Deploy via Rsync (Password Auth)
-        run: |
-          # 使用 sshpass 传递密码
-          export SSHPASS=${{ secrets.SSH_PASSWORD }}
-          rsync -avzr --delete \
-            --rsh="sshpass -e ssh -o StrictHostKeyChecking=no -p ${{ secrets.SSH_PORT || '22' }}" \
-            ./dist/ \
-            ${{ secrets.USERNAME }}@${{ secrets.SERVER_IP }}:${{ secrets.SERVER_DESTINATION }}
+      - name: Deploy via SFTP
+        uses: wangyucode/sftp-upload-action@v1.1
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          localDir: "dist"
+          remoteDir: ${{ secrets.SERVER_DESTINATION }}
+          retry: 3
+          retryWait: 5000
+          ignoreHidden: false
+          verify: true
 
-      - name: Verify deployment (可选)
+      - name: Verify remote files
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.SSH_PASSWORD }}
+          password: ${{ secrets.PASSWORD }}
           script: |
             cd ${{ secrets.SERVER_DESTINATION }}
             ls -lh js/
             tail -n 5 js/app.*.js
-            echo "Deployment verification complete"
+            # 可选：比较文件大小
+            find . -type f -exec ls -lh {} \;
