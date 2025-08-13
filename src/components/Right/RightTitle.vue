@@ -25,7 +25,6 @@
 		transition: transform 0.4s ease;
 		will-change: transform; /* 提升性能 */
 	}
-
 	.title svg {
 		margin-right: 8px;
 		height: 25px;
