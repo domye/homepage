@@ -38,4 +38,4 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           source: "dist/*"
           target: ${{ secrets.SERVER_DESTINATION }}
-          rm: true # 删除目标目录中的旧文件
+          rm: true # 删除目标目录中的旧文
