@@ -1,70 +1,42 @@
-name: Deploy Vue to Server
+name: Deploy Vue to BT
 
 on:
   push:
-    branches: [main]
+    branches: [main] # 只在main分支推送时触发
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    environment: production
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "18.x"
-          cache: "npm"
-
-      - name: Clean cache
-        run: npm cache clean --force
+          node-version: 16
 
       - name: Install dependencies
-        run: |
-          npm install
-          npm list vue # 验证vue版本
+        run: npm install
 
       - name: Build project
-        run: |
-          export NODE_OPTIONS=--max_old_space_size=4096
-          npm run build
-          # 验证构建文件完整性
-          find dist -type f -exec ls -lh {} \;
-          # 检查特定文件是否完整
-          tail -n 5 dist/js/app.*.js
+        run: npm run build
 
-      - name: Prepare deployment
-        run: |
-          mkdir -p dist/.well-known
-          echo "Deployed at $(date)" > dist/deployment.txt
-          # 记录文件校验和
-          find dist -type f -exec md5sum {} \; > dist/checksums.txt
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist/
 
-      - name: Deploy via SFTP
-        uses: wangyucode/sftp-upload-action@v1.1
+      - name: Deploy to BT Server
+        uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SERVER_IP }}
+          port: ${{ secrets.SERVER_PORT }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          localDir: "dist"
-          remoteDir: ${{ secrets.SERVER_DESTINATION }}
-          retry: 3
-          retryWait: 5000
-          ignoreHidden: false
-          verify: true
-
-      - name: Verify remote files
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          script: |
-            cd ${{ secrets.SERVER_DESTINATION }}
-            ls -lh js/
-            tail -n 5 js/app.*.js
-            # 可选：比较文件大小
-            find . -type f -exec ls -lh {} \;
+          key: ${{ secrets.BT_PRIVATE_KEY }}
+          source: "dist/*"
+          target: ${{ secrets.SERVER_DESTINATION }}
+          rm: true # 删除目标目录中的旧文件
