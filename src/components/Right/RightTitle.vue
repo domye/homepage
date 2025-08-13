@@ -25,13 +25,14 @@
 		transition: transform 0.4s ease;
 		will-change: transform; /* 提升性能 */
 	}
-	
+
 	.title svg {
 		margin-right: 8px;
 		height: 25px;
 		width: 25px;
 		fill: var(--fill);
 	}
+
 	.title:hover {
 		transform: translateY(-5px);
 	}
