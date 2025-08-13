@@ -38,18 +38,15 @@ jobs:
           # 添加部署标记文件
           echo "Deployed at $(date)" > dist/deployment.txt
 
-      - name: Deploy via SFTP
-        uses: wangyucode/sftp-upload-action@v1.1
+      - name: Deploy via Rsync
+        uses: burnett01/rsync-deployments@5.2.3
         with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          localDir: "dist"
-          remoteDir: ${{ secrets.SERVER_DESTINATION }}
-          retry: 3
-          retryWait: 5000
-          ignoreHidden: false # 确保上传隐藏文件
-          verify: true # 验证文件传输完整性
+          switches: -avzr --delete
+          path: dist/
+          remote_path: ${{ secrets.SERVER_DESTINATION }}
+          remote_host: ${{ secrets.SERVER_IP }}
+          remote_user: ${{ secrets.USERNAME }}
+          remote_pass: ${{ secrets.PASSWORD }}
 
       - name: Post-deployment check
         run: |
