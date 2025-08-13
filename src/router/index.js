@@ -1,24 +1,19 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-// import HomeView from "@/views/HomeView.vue";
 Vue.use(VueRouter);
 
-// router/index.js
-import RightFirst from "@/views/RightFirst.vue";
-import RightSecond from "@/views/RightSecond.vue";
-import RightThird from "@/views/RightThird.vue";
 const routes = [
 	{
 		path: "",
-		component: RightFirst,
+		component: () => import("@/views/RightFirst.vue"),
 	},
 	{
 		path: "/content",
-		component: RightSecond,
+		component: () => import("@/views/RightSecond.vue"),
 	},
 	{
 		path: "/faq",
-		component: RightThird,
+		component: () => import("@/views/RightThird.vue"),
 	},
 	{
 		path: "/Project",
