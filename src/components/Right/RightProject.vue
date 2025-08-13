@@ -20,13 +20,13 @@
 		</div>
 
 		<!-- 底部弹窗组件 -->
-		<keep-alive>
+		<KeepAlive>
 			<BottomSheetModal
 				:item="currentItem"
 				:is-visible="isModalVisible"
 				@update:isVisible="isModalVisible = $event"
 			/>
-		</keep-alive>
+		</KeepAlive>
 	</div>
 </template>
 

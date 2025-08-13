@@ -4,7 +4,7 @@
 		<LeftDec />
 		<LeftTag />
 		<LeftTime />
-		<left-talk></left-talk>
+		<!-- <left-talk></left-talk> -->
 	</div>
 </template>
 
@@ -13,14 +13,14 @@
 	import LeftDec from "./Left/LeftDesc.vue";
 	import LeftTag from "./Left/LeftTag.vue";
 	import LeftTime from "./Left/LeftTime.vue";
-	import LeftTalk from "./Left/LeftTalk.vue";
+	// import LeftTalk from "./Left/LeftTalk.vue";
 	export default {
 		components: {
 			LeftLogo,
 			LeftDec,
 			LeftTag,
 			LeftTime,
-			LeftTalk,
+			// LeftTalk,
 		},
 		data() {
 			return {

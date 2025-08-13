@@ -15,6 +15,7 @@
 		data() {
 			return {
 				times: [
+					{ action: "搭建个人笔记Wiki", date: "2025.8.13" },
 					{ action: "重构版主页上线", date: "2025.8.11" },
 					{ action: "着手开始主页Vue化", date: "2025.8.09" },
 					{ action: "更换博客主题为Handsome", date: "2025.7.16" },
@@ -30,7 +31,7 @@
 <style>
 	#line {
 		width: 100%;
-		max-height: 200px;
+		max-height: 400px;
 		font-size: 13px;
 		padding-left: 8px;
 		scroll-snap-type: y mandatory;
@@ -57,7 +58,10 @@
 		top: 50%;
 	}
 	#line li:first-child .focus:first-child {
-		background-color: #aaffcd;
+		background-color: #3faca3;
+		left: -7px;
+		width: 12px;
+		height: 12px;
 		animation: focus 1.8s ease infinite;
 	}
 	#line::-webkit-scrollbar {
