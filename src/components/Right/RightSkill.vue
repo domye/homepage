@@ -10,9 +10,9 @@
 		data() {
 			return {
 				skills:
-					"windows,ubuntu,vscode,java,js,spring,redis,mysql,html,css,js,vue,docker,git,github,nginx,md,nodejs,npm,ps,sublime,webpack,yarn,linux",
+					"windows,linux,ubuntu,bash,powershell,java,js,html,css,spring,vue,pinia,nodejs,webpack,vite,gulp,redis,mysql,git,github,docker,nginx,maven,npm,yarn,idea,vscode,sublime,md,ps",
 				iconsPerLinePc: 20,
-				iconsPerLineWap: 9,
+				iconsPerLineWap: 10,
 			};
 		},
 		computed: {
