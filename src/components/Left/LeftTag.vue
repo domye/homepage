@@ -49,5 +49,11 @@
 		font-size: 13px;
 		border-radius: 10px;
 		background: var(--left_tag_item);
+		transition: all 0.3s ease;
+		cursor: default;
+	}
+	.left-tag-item:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	}
 </style>
