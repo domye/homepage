@@ -1,12 +1,12 @@
 <template>
 	<div class="container-right">
-		<right-dec></right-dec>
+		<right-dec class="fade-in"></right-dec>
 		<div class="iconContainer">
-			<right-icon :icon="icon"></right-icon>
-			<right-switch></right-switch>
+			<right-icon :icon="icon" class="fade-in"></right-icon>
+			<right-switch class="fade-in"></right-switch>
 		</div>
-		<right-snake></right-snake>
-		<right-tab></right-tab>
+		<right-snake class="fade-in"></right-snake>
+		<right-tab class="fade-in"></right-tab>
 		<transition name="fade" mode="out-in">
 			<keep-alive>
 				<router-view></router-view>

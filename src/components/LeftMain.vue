@@ -1,5 +1,5 @@
 <template>
-	<div class="container-left" :style="{ height: containerHeight }">
+	<div class="container-left fade-in" :style="{ height: containerHeight }">
 		<LeftLogo />
 		<LeftDec />
 		<LeftTag />

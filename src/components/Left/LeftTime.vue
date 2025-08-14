@@ -1,6 +1,6 @@
 <template>
-	<div class="left-div left-time">
-		<ul id="line" ref="timeline" :style="{ height: computedHeight + 'px' }">
+	<div class="left-div left-time" ref="container">
+		<ul id="line" ref="timeline">
 			<li
 				v-for="(item, index) in times"
 				:key="index"
@@ -28,56 +28,27 @@
 					{ action: "重新开始搭建博客", date: "2024.11.7" },
 					{ action: "购入域名domye.top", date: "2022.7.4" },
 				],
-				maxHeight: 300,
-				computedHeight: 0,
 			};
-		},
-		mounted() {
-			this.calculateHeight();
-			window.addEventListener("resize", this.calculateHeight);
-		},
-		beforeDestroy() {
-			window.removeEventListener("resize", this.calculateHeight);
-		},
-		methods: {
-			calculateHeight() {
-				this.$nextTick(() => {
-					const items = this.$refs.items;
-					if (!items || items.length === 0) return;
-
-					let totalHeight = 0;
-					let lastFullItemIndex = -1;
-
-					for (let i = 0; i < items.length; i++) {
-						const itemHeight = items[i].offsetHeight;
-
-						// 检查加上这个条目是否会超过最大高度
-						if (totalHeight + itemHeight > this.maxHeight) {
-							// 如果这是第一个条目，仍然显示它
-							if (i === 0) {
-								totalHeight = itemHeight;
-								lastFullItemIndex = 0;
-							}
-							break;
-						}
-
-						totalHeight += itemHeight;
-						lastFullItemIndex = i;
-					}
-
-					// 确保至少显示一个条目
-					if (lastFullItemIndex === -1 && items.length > 0) {
-						totalHeight = items[0].offsetHeight;
-					}
-
-					this.computedHeight = Math.min(totalHeight, this.maxHeight);
-				});
-			},
 		},
 	};
 </script>
 
 <style>
+	/* 添加渐显动画的关键帧 */
+	@keyframes fadeIn {
+		0% {
+			opacity: 0;
+		}
+		100% {
+			opacity: 1;
+		}
+	}
+
+	/* 新增的.fade-in类，用于应用渐显动画 */
+	.fade-in {
+		animation: fadeIn 1s ease-in-out;
+	}
+
 	#line {
 		width: 100%;
 		max-height: 300px;
