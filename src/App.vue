@@ -1,6 +1,5 @@
 <template>
 	<div id="app">
-		<WelcomePopup />
 		<div class="background"></div>
 		<div class="main" ref="mainContainer">
 			<LeftMain></LeftMain>
@@ -13,7 +12,6 @@
 	import FooterMain from "./components/FooterMain.vue";
 	import LeftMain from "./components/LeftMain.vue";
 	import RightMain from "./components/RightMain.vue";
-	import WelcomePopup from "./components/WelcomePopup.vue";
 
 	export default {
 		name: "App",
@@ -21,7 +19,6 @@
 			LeftMain,
 			RightMain,
 			FooterMain,
-			WelcomePopup,
 		},
 	};
 </script>

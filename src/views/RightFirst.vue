@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<welcome-popup></welcome-popup>
 		<right-title :page="title[0]"></right-title>
 		<right-project :data="website"></right-project>
 		<right-title :page="title[1]"></right-title>
@@ -14,11 +15,13 @@
 	import RightProject from "@/components/Right/RightProject.vue";
 	import RightTitle from "@/components/Right/RightTitle.vue";
 	import RightSkill from "@/components/Right/RightSkill.vue";
+	import WelcomePopup from "@/components/WelcomePopup.vue";
 	export default {
 		components: {
 			RightProject,
 			RightTitle,
 			RightSkill,
+			WelcomePopup,
 		},
 		data() {
 			return {
