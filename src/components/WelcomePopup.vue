@@ -16,7 +16,7 @@
 		},
 		mounted() {
 			// 检查是否已经显示过通知（使用localStorage）
-			const hasSeenPopup = false; //localStorage.getItem("hasSeenWelcomePopup");
+			const hasSeenPopup = localStorage.getItem("hasSeenWelcomePopup");
 
 			if (!hasSeenPopup) {
 				// 延迟显示，确保页面加载完成
