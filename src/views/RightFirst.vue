@@ -63,7 +63,7 @@
 					},
 					{
 						title: "月下·书斋",
-						url: "https://blog.domye.top",
+						url: "https://wiki.domye.top",
 						desc: "我的技术笔记",
 						tag: "技术文档,VitePress,Vue,开发指南,API参考,最佳实践,代码片段,开源项目",
 						type: "Wiki",
