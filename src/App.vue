@@ -106,6 +106,14 @@
 		overflow-y: auto; /* 启用滚动 */
 		height: 100%;
 	}
+	@font-face {
+		font-family: "Douyin Sans";
+		src: url("https://cdn.domye.top/uploads/08/1.woff2") format("woff2");
+		font-weight: bold;
+		font-style: normal;
+		font-display: swap;
+	}
+
 	#app {
 		display: flex;
 		height: 100%;
