@@ -1,12 +1,12 @@
 <template>
 	<div class="container-right">
-		<right-dec class="fade-in"></right-dec>
+		<RightDec class="fade-in" />
 		<div class="iconContainer">
-			<right-icon :icon="icon" class="fade-in"></right-icon>
-			<right-switch class="fade-in"></right-switch>
+			<RightIcon :icon="icon" class="fade-in" />
+			<RightSwitch class="fade-in" />
 		</div>
-		<right-snake class="fade-in"></right-snake>
-		<right-tab class="fade-in"></right-tab>
+		<RightSnake class="fade-in" />
+		<RightTab class="fade-in" />
 		<transition name="fade" mode="out-in">
 			<keep-alive>
 				<router-view></router-view>
@@ -20,7 +20,7 @@
 	import RightIcon from "./Right/RightIcon.vue";
 	import RightSnake from "./Right/RightSnake.vue";
 	import RightSwitch from "./Right/RightSwitch.vue";
-	import svg from "@/assets/svg.json";
+	import { socialLinks } from "@/config/data";
 	import RightTab from "./Right/RightTab.vue";
 	export default {
 		components: {
@@ -33,29 +33,7 @@
 		data() {
 			return {
 				transitionName: "slide-left",
-				icon: [
-					{
-						tip: "Github",
-						url: "https://github.com/domye",
-						svg: svg.Github,
-					},
-					{
-						tip: "B站",
-						url: "https://space.bilibili.com/259725803",
-						svg: svg.bili,
-						box: "0 0 1071 1024",
-					},
-					{
-						tip: "抖音",
-						url: "https://www.douyin.com/user/MS4wLjABAAAAB6SzADkpU7jExFNzB_2JvzzUwb13YFAqTc8kYmaqzFs",
-						svg: svg.douyin,
-					},
-					{
-						tip: "博客",
-						url: "https://blog.domye.top",
-						svg: svg.blog,
-					},
-				],
+				icon: socialLinks,
 			};
 		},
 	};

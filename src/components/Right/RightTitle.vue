@@ -10,7 +10,10 @@
 <script>
 	export default {
 		props: {
-			page: Object,
+			page: {
+				type: Object,
+				default: () => ({}),
+			},
 		},
 	};
 </script>

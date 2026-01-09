@@ -1,13 +1,20 @@
 <template>
 	<div class="button-container">
-		<router-link to="/" class="tab-button">项目</router-link>
-		<router-link to="/content" class="tab-button">关于</router-link>
-		<router-link to="/faq" class="tab-button">常见问题</router-link>
+		<router-link :to="routes.HOME" class="tab-button">项目</router-link>
+		<router-link :to="routes.CONTENT" class="tab-button">关于</router-link>
+		<router-link :to="routes.FAQ" class="tab-button">常见问题</router-link>
 	</div>
 </template>
 
 <script>
-	export default {};
+	import { ROUTES } from "@/config/constants";
+	export default {
+		data() {
+			return {
+				routes: ROUTES,
+			};
+		},
+	};
 </script>
 
 <style>

@@ -17,20 +17,11 @@
 </template>
 
 <script>
-	import svg from "@/assets/svg.json";
+	import { personalInfo } from "@/config/data";
 	export default {
 		data() {
 			return {
-				dec: [
-					{
-						icon: svg.people,
-						dec: "一个白日梦想家",
-					},
-					{
-						icon: svg.doc,
-						dec: "无限进步",
-					},
-				],
+				dec: personalInfo,
 			};
 		},
 	};

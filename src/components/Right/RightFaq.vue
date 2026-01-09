@@ -20,27 +20,12 @@
 </template>
 
 <script>
+	import { faqData } from "@/config/data";
+
 	export default {
 		data() {
 			return {
-				faqs: [
-					{
-						question: "你为什么会走上编程这条路？",
-						answer: `因为<span class="highlight-text">热爱</span>吧，从小就对电子产品感兴趣，初中就搭建了自己的个人博客(可惜备份丢了)😭`,
-						isActive: false,
-					},
-					{
-						question: "接下来有什么计划？",
-						answer: `继续精进<span class="highlight-text">前后端</span>技术，成为一个<span class="highlight-text">全栈</span>大牛，争取早日实现自己的理想✨`,
-						isActive: false,
-					},
-					{
-						question: "如何联系我？",
-						answer: `可以联系我的邮箱: <span class="highlight-text">domye1@qq.com</span>`,
-						isActive: false,
-					},
-					// 其他 FAQ 项
-				],
+				faqs: faqData,
 			};
 		},
 		methods: {

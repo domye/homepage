@@ -1,12 +1,12 @@
 <template>
 	<div id="app">
-		<welcome-popup></welcome-popup>
+		<WelcomePopup />
 		<div class="background"></div>
 		<div class="main" ref="mainContainer">
-			<LeftMain></LeftMain>
-			<right-main></right-main>
+			<LeftMain />
+			<RightMain />
 		</div>
-		<footer-main></footer-main>
+		<FooterMain />
 	</div>
 </template>
 <script>

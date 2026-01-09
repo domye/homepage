@@ -18,10 +18,13 @@
 </template>
 
 <script>
+	import { THEME_CONFIG } from "@/config/constants";
+
 	export default {
 		data() {
 			return {
-				themeState: JSON.parse(sessionStorage.getItem("themeState")) ?? true,
+				themeState:
+					JSON.parse(sessionStorage.getItem(THEME_CONFIG.STORAGE_KEY)) ?? true,
 			};
 		},
 		mounted() {
@@ -29,16 +32,22 @@
 		},
 		methods: {
 			toggleTheme() {
-				sessionStorage.setItem("themeState", JSON.stringify(this.themeState));
+				sessionStorage.setItem(
+					THEME_CONFIG.STORAGE_KEY,
+					JSON.stringify(this.themeState)
+				);
 				this.applyTheme();
 			},
 			applyTheme() {
-				const themeName = this.themeState ? "Light" : "Dark";
+				const themeName = this.themeState ? THEME_CONFIG.LIGHT : THEME_CONFIG.DARK;
 
 				// 更新蛇形图
 				const tanChiShe = document.getElementById("tanChiShe");
 				if (tanChiShe) {
-					tanChiShe.src = `https://hub.gitmirror.com/https://raw.githubusercontent.com/domye/domye/output/github-contribution-grid-snake-${themeName}.svg`;
+					tanChiShe.src = THEME_CONFIG.SNAKE_URL_TEMPLATE.replace(
+						"{theme}",
+						themeName
+					);
 				}
 
 				// 设置主题属性
@@ -47,9 +56,9 @@
 				// 更新背景
 				document.documentElement.style.setProperty(
 					"--main_bg_color",
-					themeName === "Light"
-						? "url(https://cdn.domye.top/uploads/07/1753247356.webp)"
-						: "#000000"
+					themeName === THEME_CONFIG.LIGHT
+						? THEME_CONFIG.BACKGROUND_URL_LIGHT
+						: THEME_CONFIG.BACKGROUND_COLOR_DARK
 				);
 			},
 		},

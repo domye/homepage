@@ -18,7 +18,10 @@
 <script>
 	export default {
 		props: {
-			icon: Array,
+			icon: {
+				type: Array,
+				default: () => [],
+			},
 		},
 		data() {
 			return {};

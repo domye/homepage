@@ -2,7 +2,7 @@
 	<div class="tanChiShe">
 		<img
 			id="tanChiShe"
-			src="https://hub.gitmirror.com/https://raw.githubusercontent.com/domye/domye/output/github-contribution-grid-snake-Light.svg"
+			src="https://raw.githubusercontent.com/domye/domye/output/github-contribution-grid-snake-Light.svg"
 			alt=""
 		/>
 	</div>

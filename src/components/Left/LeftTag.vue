@@ -9,23 +9,11 @@
 </template>
 
 <script>
+	import { personalTags } from "@/config/data";
 	export default {
 		data() {
 			return {
-				tag: [
-					"大二",
-					"码农",
-					"全栈",
-					"Java",
-					"开发",
-					"后端",
-					"摄影",
-					"摇滚",
-					"R&B",
-					"艺术",
-					"指弹",
-					"长发",
-				],
+				tag: personalTags,
 			};
 		},
 	};

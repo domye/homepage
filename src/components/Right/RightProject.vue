@@ -37,8 +37,14 @@
 			BottomSheetModal,
 		},
 		props: {
-			data: Array,
-			page: Object,
+			data: {
+				type: Array,
+				default: () => [],
+			},
+			page: {
+				type: Object,
+				default: () => ({}),
+			},
 		},
 		data() {
 			return {
