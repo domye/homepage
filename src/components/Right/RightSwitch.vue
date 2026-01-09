@@ -40,6 +40,28 @@
 			},
 			applyTheme() {
 				const themeName = this.themeState ? THEME_CONFIG.LIGHT : THEME_CONFIG.DARK;
+				const isLight = themeName === THEME_CONFIG.LIGHT;
+
+				// 设置主题属性（影响一组 CSS 变量）
+				document.documentElement.setAttribute("data-theme", themeName);
+
+				// 背景采用“图片层 + 纯色层”交叉淡入淡出，保证双向都有过渡
+				document.documentElement.style.setProperty(
+					"--bg-image",
+					THEME_CONFIG.BACKGROUND_URL_LIGHT
+				);
+				document.documentElement.style.setProperty(
+					"--bg-color",
+					THEME_CONFIG.BACKGROUND_COLOR_DARK
+				);
+				document.documentElement.style.setProperty(
+					"--bg-image-opacity",
+					isLight ? "1" : "0"
+				);
+				document.documentElement.style.setProperty(
+					"--bg-color-opacity",
+					isLight ? "0" : "1"
+				);
 
 				// 更新蛇形图
 				const tanChiShe = document.getElementById("tanChiShe");
@@ -49,17 +71,6 @@
 						themeName
 					);
 				}
-
-				// 设置主题属性
-				document.documentElement.setAttribute("data-theme", themeName);
-
-				// 更新背景
-				document.documentElement.style.setProperty(
-					"--main_bg_color",
-					themeName === THEME_CONFIG.LIGHT
-						? THEME_CONFIG.BACKGROUND_URL_LIGHT
-						: THEME_CONFIG.BACKGROUND_COLOR_DARK
-				);
 			},
 		},
 	};

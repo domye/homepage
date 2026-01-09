@@ -45,6 +45,7 @@
 		--back_filter_color: #000000;
 		--fill: #ffffff;
 		--box_bg_color: #161616;
+		--scrollbar-track: #000000;
 	}
 	html {
 		--main_text_color: #eeeeee;
@@ -61,6 +62,14 @@
 		--back_filter_color: #00000060;
 		--fill: #ffffff;
 		--box_bg_color: #00000036;
+		--scrollbar-track: linear-gradient(50deg, #a2d0ff, #ffffff);
+
+		/* 主题背景过渡（图片层 + 纯色层）默认值，最终会被 RightSwitch 写入 */
+		--bg-image: linear-gradient(50deg, #a2d0ff, #ffffff);
+		--bg-color: #000000;
+		--bg-image-opacity: 1;
+		--bg-color-opacity: 0;
+		--theme-bg-transition: 1.2s ease;
 	}
 
 	* {
@@ -91,10 +100,7 @@
 		height: 20%;
 	}
 	::-webkit-scrollbar-track {
-		background-color: var(
-			--main_bg_color,
-			linear-gradient(50deg, #a2d0ff, #ffffff)
-		);
+		background: var(--scrollbar-track);
 	}
 	.main {
 		width: 100%;
@@ -121,24 +127,51 @@
 		width: 100%;
 		position: relative;
 		font-family: "Douyin Sans";
-		background: var(--main_bg_color);
-		background-repeat: no-repeat;
-		background-size: cover;
-		background-position: center;
-		background-attachment: fixed;
 		transition: color 0.1s ease;
 		justify-content: center;
 		color: var(--main_text_color);
 		z-index: 100;
 	}
 
+	/*
+		主题背景层：用 opacity 交叉淡入淡出，保证
+		- 白 -> 黑：图片淡出 + 纯色淡入
+		- 黑 -> 白：纯色淡出 + 图片淡入
+	*/
+	#app::before,
+	#app::after {
+		content: "";
+		position: fixed;
+		inset: 0;
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+		pointer-events: none;
+		transition: opacity var(--theme-bg-transition);
+	}
+	#app::before {
+		background-image: var(--bg-image);
+		opacity: var(--bg-image-opacity);
+		z-index: -101;
+	}
+	#app::after {
+		background: var(--bg-color);
+		opacity: var(--bg-color-opacity);
+		z-index: -102;
+	}
+
 	.background {
 		position: fixed;
 		width: 100%;
 		height: 100%;
-		background: var(--back_filter_color);
+		background-color: var(--back_filter_color);
 		backdrop-filter: blur(var(--back_filter));
 		-webkit-backdrop-filter: blur(var(--back_filter));
+		transition: background-color var(--theme-bg-transition),
+			backdrop-filter var(--theme-bg-transition),
+			-webkit-backdrop-filter var(--theme-bg-transition);
+		will-change: backdrop-filter, background-color;
+		transform: translateZ(0);
 		z-index: -99;
 	}
 	/* 移除左右容器的独立滚动 */
