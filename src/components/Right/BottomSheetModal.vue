@@ -31,7 +31,8 @@
 								v-if="item.link"
 								:href="item.link"
 								class="project-link"
-								target="_self"
+								target="_blank"
+								rel="noopener noreferrer"
 								@click.stop
 							>
 								访问项目
@@ -40,7 +41,8 @@
 								v-if="item.github"
 								:href="item.github"
 								class="github-link"
-								target="_self"
+								target="_blank"
+								rel="noopener noreferrer"
 								@click.stop
 							>
 								GitHub仓库

@@ -4,13 +4,13 @@
 		<a target="_blank" href="https://beian.miit.gov.cn/">皖ICP备2024052746号</a> -->
 		<div class="github-badge-mobile github-badge">
 			<span class="badge-subject">Copyright</span>
-			<a href="https://blog.domye.top" target="_blank">
+			<a href="https://blog.domye.top" target="_blank" rel="noopener noreferrer">
 				<span class="badge-value bg-purple">©2025</span>
 			</a>
 		</div>
 		<div class="github-badge">
 			<span class="badge-subject">皖ICP备</span>
-			<a href="http://beian.miit.gov.cn/" target="_blank">
+			<a href="http://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">
 				<span class="badge-value bg-blue">2024052746号</span>
 			</a>
 
@@ -18,13 +18,14 @@
 			<a
 				href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=34130202000763"
 				target="_blank"
+				rel="noopener noreferrer"
 			>
 				<span class="badge-value bg-green">34130202000763号</span>
 			</a>
 		</div>
 		<div class="github-badge-mobile github-badge">
 			<span class="badge-subject">Github</span>
-			<a href="https://github.com/domye/homepage" target="_blank">
+			<a href="https://github.com/domye/homepage" target="_blank" rel="noopener noreferrer">
 				<span class="badge-value bg-orange">Domye</span>
 			</a>
 		</div>

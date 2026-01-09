@@ -1,15 +1,22 @@
 <template>
 	<div class="tanChiShe">
-		<img
-			id="tanChiShe"
-			src="https://raw.githubusercontent.com/domye/domye/output/github-contribution-grid-snake-Light.svg"
-			alt=""
-		/>
+		<img id="tanChiShe" :src="defaultSnakeUrl" alt="GitHub contribution snake" />
 	</div>
 </template>
 
 <script>
-	export default {};
+	import { THEME_CONFIG } from "@/config/constants";
+
+	export default {
+		data() {
+			return {
+				defaultSnakeUrl: THEME_CONFIG.SNAKE_URL_TEMPLATE.replace(
+					"{theme}",
+					THEME_CONFIG.LIGHT
+				),
+			};
+		},
+	};
 </script>
 
 <style>
@@ -28,3 +35,4 @@
 		}
 	}
 </style>
+

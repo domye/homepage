@@ -1,23 +1,25 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import { ROUTES } from "@/config/constants";
+
 Vue.use(VueRouter);
 
 const routes = [
 	{
-		path: "",
+		path: ROUTES.HOME,
 		component: () => import("@/views/RightFirst.vue"),
 	},
 	{
-		path: "/content",
+		path: ROUTES.CONTENT,
 		component: () => import("@/views/RightSecond.vue"),
 	},
 	{
-		path: "/faq",
+		path: ROUTES.FAQ,
 		component: () => import("@/views/RightThird.vue"),
 	},
 	{
-		path: "/Project",
-		redirect: "/",
+		path: "*",
+		redirect: ROUTES.HOME,
 	},
 ];
 

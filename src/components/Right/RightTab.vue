@@ -54,7 +54,7 @@
 		border: none;
 		border-radius: 12px;
 		background: transparent;
-		color: var(---item_left_text_color);
+		color: var(--item_left_text_color);
 		font-size: 15px;
 		font-weight: 600;
 		cursor: pointer;

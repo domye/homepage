@@ -1,5 +1,5 @@
 <template>
-	<a class="switch" href="javascript:void(0)">
+	<div class="switch">
 		<div class="onoffswitch">
 			<input
 				type="checkbox"
@@ -14,7 +14,7 @@
 				<span class="onoffswitch-switch"></span>
 			</label>
 		</div>
-	</a>
+	</div>
 </template>
 
 <script>

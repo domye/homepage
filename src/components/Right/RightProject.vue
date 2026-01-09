@@ -5,8 +5,8 @@
 			<a
 				v-for="(item, index) in data"
 				class="projectItem"
-				href="javascript:void(0);"
-				@click="showModal(item)"
+				href="#"
+				@click.prevent="showModal(item)"
 				:key="index"
 			>
 				<div class="projectItemLeft">
@@ -20,13 +20,13 @@
 		</div>
 
 		<!-- 底部弹窗组件 -->
-		<KeepAlive>
+		<keep-alive>
 			<BottomSheetModal
 				:item="currentItem"
 				:is-visible="isModalVisible"
 				@update:isVisible="isModalVisible = $event"
 			/>
-		</KeepAlive>
+		</keep-alive>
 	</div>
 </template>
 

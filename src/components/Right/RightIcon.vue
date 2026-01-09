@@ -5,6 +5,7 @@
 			v-for="item in icon"
 			:key="item.tip"
 			target="_blank"
+			rel="noopener noreferrer"
 			:href="item.url"
 		>
 			<svg class="icon" :viewBox="item.box || '0 0 1024 1024'">
