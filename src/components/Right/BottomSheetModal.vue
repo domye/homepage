@@ -1,7 +1,7 @@
 <template>
 	<div class="buttom-sheet" :class="{ show: isVisible, dragging: isDragging }">
 		<div class="sheet-overlay" @click="hide"></div>
-		<div class="content" :style="{ height: `${currentHeight}vh` }">
+		<div class="content" :style="{ transform: `translate3d(0, ${currentTranslate}vh, 0)` }">
 			<div class="header">
 				<div class="drag-icon" @mousedown="dragStart" @touchstart="dragStart">
 					<span></span>
@@ -111,56 +111,76 @@
 				defaultHeight: 60,
 				isDragging: false,
 				startY: 0,
-				startHeight: 60,
-				currentHeight: 60,
+				startTranslate: 40,
+				currentTranslate: 40,
+				windowHeight: 0,
 			};
 		},
 		watch: {
 			isVisible(newVal) {
 				if (newVal) {
-					this.resetHeight();
+					this.resetPosition(true);
 					document.body.style.overflowY = "hidden";
 				} else {
+					this.currentTranslate = 100;
 					document.body.style.overflowY = "auto";
 				}
 			},
 			item() {
 				// keep-alive 场景：弹窗不关闭但内容切换时，也需要回到默认高度
-				if (this.isVisible) this.resetHeight();
+				if (this.isVisible) this.resetPosition(false);
 			},
 		},
 		methods: {
-			resetHeight() {
-				this.startHeight = this.defaultHeight;
-				this.currentHeight = this.defaultHeight;
+			getDefaultTranslate() {
+				return 100 - this.defaultHeight;
+			},
+			resetPosition(withOpenAnimation) {
+				const target = this.getDefaultTranslate();
+				this.startTranslate = target;
+
+				if (withOpenAnimation) {
+					// 先放到屏幕外，再下一帧滑入到默认高度
+					this.currentTranslate = 100;
+					this.$nextTick(() => {
+						requestAnimationFrame(() => {
+							this.currentTranslate = target;
+						});
+					});
+				} else {
+					this.currentTranslate = target;
+				}
 			},
 			hide() {
-				this.resetHeight();
+				this.currentTranslate = 100;
 				this.$emit("update:isVisible", false);
 			},
 			dragStart(e) {
 				this.isDragging = true;
+				this.windowHeight = window.innerHeight || 1;
 				this.startY = e.pageY || e.touches?.[0].pageY;
-				this.startHeight = this.currentHeight;
+				this.startTranslate = this.currentTranslate;
 			},
 			dragging(e) {
 				if (!this.isDragging) return;
-				const delta = this.startY - (e.pageY || e.touches?.[0].pageY);
-				this.currentHeight = Math.min(
+				const currentY = e.pageY || e.touches?.[0].pageY;
+				const deltaY = currentY - this.startY;
+				this.currentTranslate = Math.min(
 					100,
-					Math.max(0, this.startHeight + (delta / window.innerHeight) * 100)
+					Math.max(0, this.startTranslate + (deltaY / this.windowHeight) * 100)
 				);
 			},
 			dragStop() {
 				if (!this.isDragging) return;
 				this.isDragging = false;
 
-				if (this.currentHeight < 25) {
+				const visibleHeight = 100 - this.currentTranslate;
+				if (visibleHeight < 25) {
 					this.hide();
-				} else if (this.currentHeight > 75) {
-					this.currentHeight = 100;
+				} else if (visibleHeight > 75) {
+					this.currentTranslate = 0;
 				} else {
-					this.resetHeight();
+					this.currentTranslate = this.getDefaultTranslate();
 				}
 			},
 			rafThrottle(func) {
@@ -231,22 +251,25 @@
 		position: relative;
 		background: var(--box_bg_color);
 		backdrop-filter: blur(20px);
+		-webkit-backdrop-filter: blur(20px);
 		max-height: 100vh;
-		height: 60vh;
+		height: 100vh;
 		max-width: 800px;
 		padding: 25px 30px;
-		transform: translateY(100%);
 		border-radius: 15px 15px 0 0;
 		box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-		transition: transform 0.3s ease-out, opacity 0.1s linear;
+		transition: transform 0.25s ease-out, opacity 0.1s linear;
+
+		/* 关键：拖拽只改 transform（合成层），模糊保持不变 */
+		contain: layout paint;
+		will-change: transform;
 	}
-	.buttom-sheet.show .content {
-		transform: translateY(0%);
-		opacity: 1;
-	}
+
 	.buttom-sheet.dragging .content {
 		transition: none;
 	}
+
+
 	.buttom-sheet .header {
 		display: flex;
 		justify-content: center;
