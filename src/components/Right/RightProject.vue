@@ -3,18 +3,26 @@
 		<!-- 项目列表 -->
 		<div class="projectList">
 			<a
-				v-for="(item, index) in data"
+				v-for="item in data"
 				class="projectItem"
 				href="#"
 				@click.prevent="showModal(item)"
-				:key="index"
+				:key="item.url || item.github || item.title"
 			>
 				<div class="projectItemLeft">
 					<h1>{{ item.title }}</h1>
 					<p>{{ item.desc }}</p>
 				</div>
 				<div class="projectItemRight">
-					<img :src="item.img" alt="" />
+					<img
+						:src="item.img"
+						alt=""
+						width="39"
+						height="39"
+						decoding="async"
+						loading="lazy"
+						fetchpriority="low"
+					/>
 				</div>
 			</a>
 		</div>

@@ -76,8 +76,31 @@
 		margin: 0;
 		padding: 0;
 		box-sizing: border-box;
-		transition: background-color 1s ease;
 		word-wrap: break-word;
+	}
+
+	/* 仅对“主题会变色的关键容器”加过渡，避免全局 transition 带来的大量重绘 */
+	#app,
+	.background,
+	footer,
+	.left-div,
+	.projectItem,
+	.faq-item,
+	.button-container,
+	.iconItem,
+	.switch,
+	.buttom-sheet .content {
+		transition: background-color var(--theme-bg-transition),
+			color var(--theme-bg-transition),
+			border-color var(--theme-bg-transition);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		* {
+			animation: none !important;
+			transition: none !important;
+			scroll-behavior: auto !important;
+		}
 	}
 	a:hover,
 	a:link,

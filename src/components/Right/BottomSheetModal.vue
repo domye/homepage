@@ -11,7 +11,13 @@
 				<!-- 豆瓣风格布局 -->
 				<div class="project-detail">
 					<div class="detail-left">
-						<img :src="item.img" alt="项目封面" class="project-cover" />
+						<img
+							:src="item.img"
+							alt="项目封面"
+							class="project-cover"
+							decoding="async"
+							loading="lazy"
+						/>
 					</div>
 					<div class="detail-right">
 						<h2>{{ item.title }}</h2>
@@ -102,6 +108,7 @@
 		},
 		data() {
 			return {
+				defaultHeight: 60,
 				isDragging: false,
 				startY: 0,
 				startHeight: 60,
@@ -111,14 +118,24 @@
 		watch: {
 			isVisible(newVal) {
 				if (newVal) {
+					this.resetHeight();
 					document.body.style.overflowY = "hidden";
 				} else {
 					document.body.style.overflowY = "auto";
 				}
 			},
+			item() {
+				// keep-alive 场景：弹窗不关闭但内容切换时，也需要回到默认高度
+				if (this.isVisible) this.resetHeight();
+			},
 		},
 		methods: {
+			resetHeight() {
+				this.startHeight = this.defaultHeight;
+				this.currentHeight = this.defaultHeight;
+			},
 			hide() {
+				this.resetHeight();
 				this.$emit("update:isVisible", false);
 			},
 			dragStart(e) {
@@ -143,35 +160,28 @@
 				} else if (this.currentHeight > 75) {
 					this.currentHeight = 100;
 				} else {
-					this.currentHeight = 60;
+					this.resetHeight();
 				}
 			},
-			throttle(func, limit) {
-				let lastFunc;
-				let lastRan;
+			rafThrottle(func) {
+				let rafId = null;
 				return function () {
+					if (rafId) return;
 					const context = this;
 					const args = arguments;
-					if (!lastRan) {
+					rafId = requestAnimationFrame(() => {
+						rafId = null;
 						func.apply(context, args);
-						lastRan = Date.now();
-					} else {
-						clearTimeout(lastFunc);
-						lastFunc = setTimeout(function () {
-							if (Date.now() - lastRan >= limit) {
-								func.apply(context, args);
-								lastRan = Date.now();
-							}
-						}, limit - (Date.now() - lastRan));
-					}
+					});
 				};
 			},
 		},
+
 		mounted() {
-			const throttledDrag = this.throttle(this.dragging, 10);
+			const throttledDrag = this.rafThrottle(this.dragging);
 			document.addEventListener("mousemove", throttledDrag);
 			document.addEventListener("mouseup", this.dragStop);
-			document.addEventListener("touchmove", throttledDrag);
+			document.addEventListener("touchmove", throttledDrag, { passive: true });
 			document.addEventListener("touchend", this.dragStop);
 
 			// 清理函数
@@ -324,9 +334,11 @@
 		border-radius: 6px;
 		text-decoration: none;
 		font-size: 14px;
-		transition: all 0.3s ease;
+		transition: transform 0.3s ease, box-shadow 0.3s ease,
+			background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 		cursor: pointer;
 	}
+
 	.project-link {
 		background-color: #007bff93;
 		color: white;

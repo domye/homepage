@@ -47,9 +47,11 @@
 		margin-bottom: 12px;
 		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 		overflow: hidden;
-		transition: all 0.8s ease;
+		transition: background-color 0.4s ease, box-shadow 0.4s ease,
+			border-color 0.4s ease, transform 0.4s ease;
 		border: 1px solid rgba(255, 255, 255, 0.1);
 	}
+
 
 	.faq-item:hover {
 		background: var(--item_hover_color);
@@ -64,9 +66,10 @@
 		padding: 20px;
 		cursor: pointer;
 		font-weight: 500;
-		transition: all 0.8s ease;
+		transition: color 0.4s ease;
 		user-select: none;
 	}
+
 
 	.faq-question span {
 		flex: 1;

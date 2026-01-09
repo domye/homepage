@@ -1,6 +1,11 @@
 <template>
 	<div class="tanChiShe">
-		<img id="tanChiShe" :src="defaultSnakeUrl" alt="GitHub contribution snake" />
+		<img
+			id="tanChiShe"
+			:src="defaultSnakeUrl"
+			alt="GitHub contribution snake"
+			decoding="async"
+		/>
 	</div>
 </template>
 
