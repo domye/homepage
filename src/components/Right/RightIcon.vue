@@ -5,7 +5,6 @@
 			v-for="item in icon"
 			:key="item.tip"
 			target="_blank"
-			rel="noopener noreferrer"
 			:href="item.url"
 		>
 			<svg class="icon" :viewBox="item.box || '0 0 1024 1024'">
@@ -56,10 +55,13 @@
 
 	.iconTip {
 		white-space: nowrap;
-		display: none;
+		/* 保留原“展开后显示文字”的效果，只把 display 切换改为可过渡属性 */
+		display: inline-block;
+		max-width: 0;
+		overflow: hidden;
 		opacity: 0;
-		transform: translateY(-10px);
-		transition: opacity 0.5s ease, transform 0.5s ease-in-out; /* 优化过渡时间和缓动函数 */
+		transform: translateY(-10px) scale(0.98);
+		transition: max-width 0.5s ease, opacity 0.5s ease, transform 0.5s ease-in-out;
 	}
 
 	.iconItem:hover {
@@ -73,9 +75,8 @@
 	}
 
 	.iconItem:hover .iconTip {
-		display: block;
+		max-width: 80px;
 		opacity: 1;
 		transform: translateY(0) scale(1); /* 添加缩放效果 */
-		transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; /* 优化过渡时间和缓动函数 */
 	}
 </style>
