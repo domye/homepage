@@ -8,26 +8,15 @@
 	</div>
 </template>
 
-<script>
-	import LeftLogo from "./Left/LeftLogo.vue";
-	import LeftDec from "./Left/LeftDesc.vue";
-	import LeftTag from "./Left/LeftTag.vue";
-	import LeftTime from "./Left/LeftTime.vue";
-	// import LeftTalk from "./Left/LeftTalk.vue";
-	export default {
-		components: {
-			LeftLogo,
-			LeftDec,
-			LeftTag,
-			LeftTime,
-			// LeftTalk,
-		},
-		data() {
-			return {
-				containerHeight: "100%",
-			};
-		},
-	};
+<script setup lang="ts">
+import { ref } from 'vue'
+import LeftLogo from './Left/LeftLogo.vue'
+import LeftDec from './Left/LeftDesc.vue'
+import LeftTag from './Left/LeftTag.vue'
+import LeftTime from './Left/LeftTime.vue'
+// import LeftTalk from "./Left/LeftTalk.vue";
+
+const containerHeight = ref<string>('100%')
 </script>
 
 <style>

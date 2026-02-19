@@ -8,8 +8,8 @@
 	></a>
 </template>
 
-<script>
-	export default {};
+<script setup lang="ts">
+// No script needed
 </script>
 
 <style>

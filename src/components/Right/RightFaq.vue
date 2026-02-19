@@ -19,21 +19,16 @@
 	</div>
 </template>
 
-<script>
-	import { faqData } from "@/config/data";
+<script setup lang="ts">
+import { faqData } from '@/config/data'
+import type { FaqItem } from '@/config/data'
+import { ref } from 'vue'
 
-	export default {
-		data() {
-			return {
-				faqs: faqData,
-			};
-		},
-		methods: {
-			toggleFAQ(index) {
-				this.faqs[index].isActive = !this.faqs[index].isActive;
-			},
-		},
-	};
+const faqs = ref<FaqItem[]>(faqData)
+
+const toggleFAQ = (index: number) => {
+  faqs.value[index].isActive = !faqs.value[index].isActive
+}
 </script>
 
 <style>

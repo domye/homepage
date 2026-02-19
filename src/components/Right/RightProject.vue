@@ -30,55 +30,55 @@
 	</div>
 </template>
 
-<script>
-	const BottomSheetModal = () => import("./BottomSheetModal.vue");
-	export default {
-		components: {
-			BottomSheetModal,
-		},
-		props: {
-			data: {
-				type: Array,
-				default: () => [],
-			},
-			page: {
-				type: Object,
-				default: () => ({}),
-			},
-		},
-		data() {
-			return {
-				isModalVisible: false,
-				currentItem: {
-					title: "",
-					content: "",
-					img: "",
-					type: "",
-					author: "",
-					desc: "",
-					link: "",
-					github: "",
-					tech: "",
-				},
-			};
-		},
-		methods: {
-			showModal(item) {
-				this.currentItem = {
-					title: item.title || "",
-					content: item.intro || "",
-					img: item.img || "",
-					type: item.type || "",
-					author: item.author || "",
-					desc: item.desc || "",
-					link: item.url || "",
-					github: item.github || "",
-					tech: item.tag || "",
-				};
-				this.isModalVisible = true;
-			},
-		},
-	};
+<script setup lang="ts">
+import { ref, defineAsyncComponent } from 'vue'
+import type { ProjectData } from '@/config/data'
+
+const BottomSheetModal = defineAsyncComponent(() => import('./BottomSheetModal.vue'))
+
+interface ModalItem {
+  title: string
+  content: string
+  img: string
+  type: string
+  author: string
+  desc: string
+  link: string
+  github: string
+  tech: string
+}
+
+defineProps<{
+  data: ProjectData[]
+}>()
+
+const isModalVisible = ref(false)
+const currentItem = ref<ModalItem>({
+  title: '',
+  content: '',
+  img: '',
+  type: '',
+  author: '',
+  desc: '',
+  link: '',
+  github: '',
+  tech: '',
+})
+
+const showModal = (item: ProjectData) => {
+  currentItem.value = {
+    title: item.title || '',
+    content: item.intro || '',
+    img: item.img || '',
+    type: item.type || '',
+    author: item.author || '',
+    desc: item.desc || '',
+    link: item.url || '',
+    github: item.github || '',
+    tech: item.tag || '',
+  }
+  isModalVisible.value = true
+}
 </script>
 
 <style scoped>

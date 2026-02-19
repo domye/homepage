@@ -5,25 +5,22 @@
 	</div>
 </template>
 
-<script>
-	export default {
-		data() {
-			return {
-				skills:
-					"windows,linux,ubuntu,bash,powershell,java,js,html,css,spring,vue,pinia,nodejs,webpack,vite,gulp,redis,mysql,git,github,docker,nginx,maven,npm,yarn,idea,vscode,sublime,md,ps",
-				iconsPerLinePc: 20,
-				iconsPerLineWap: 10,
-			};
-		},
-		computed: {
-			skillIconsPc() {
-				return `https://skillicons.dev/icons?i=${this.skills}&perline=${this.iconsPerLinePc}`;
-			},
-			skillIconsWap() {
-				return `https://skillicons.dev/icons?i=${this.skills}&perline=${this.iconsPerLineWap}`;
-			},
-		},
-	};
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+
+const skills = ref<string>(
+  'windows,linux,ubuntu,bash,powershell,java,js,html,css,spring,vue,pinia,nodejs,webpack,vite,gulp,redis,mysql,git,github,docker,nginx,maven,npm,yarn,idea,vscode,sublime,md,ps'
+)
+const iconsPerLinePc = ref<number>(20)
+const iconsPerLineWap = ref<number>(10)
+
+const skillIconsPc = computed<string>(() =>
+  `https://skillicons.dev/icons?i=${skills.value}&perline=${iconsPerLinePc.value}`
+)
+
+const skillIconsWap = computed<string>(() =>
+  `https://skillicons.dev/icons?i=${skills.value}&perline=${iconsPerLineWap.value}`
+)
 </script>
 <style>
 	.skill {

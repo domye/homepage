@@ -16,18 +16,12 @@
 	</div>
 </template>
 
-<script>
-	export default {
-		props: {
-			icon: {
-				type: Array,
-				default: () => [],
-			},
-		},
-		data() {
-			return {};
-		},
-	};
+<script setup lang="ts">
+import type { SocialLink } from '@/config/data'
+
+defineProps<{
+  icon: SocialLink[]
+}>()
 </script>
 
 <style>

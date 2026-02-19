@@ -9,21 +9,12 @@
 		<FooterMain />
 	</div>
 </template>
-<script>
-	import FooterMain from "./components/FooterMain.vue";
-	import LeftMain from "./components/LeftMain.vue";
-	import RightMain from "./components/RightMain.vue";
-	import WelcomePopup from "./components/WelcomePopup.vue";
 
-	export default {
-		name: "App",
-		components: {
-			LeftMain,
-			RightMain,
-			FooterMain,
-			WelcomePopup,
-		},
-	};
+<script setup lang="ts">
+import FooterMain from './components/FooterMain.vue'
+import LeftMain from './components/LeftMain.vue'
+import RightMain from './components/RightMain.vue'
+import WelcomePopup from './components/WelcomePopup.vue'
 </script>
 
 <style>

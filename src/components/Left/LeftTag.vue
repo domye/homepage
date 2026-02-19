@@ -8,15 +8,10 @@
 	</div>
 </template>
 
-<script>
-	import { personalTags } from "@/config/data";
-	export default {
-		data() {
-			return {
-				tag: personalTags,
-			};
-		},
-	};
+<script setup lang="ts">
+import { personalTags } from '@/config/data'
+
+const tag = personalTags
 </script>
 
 <style scoped>

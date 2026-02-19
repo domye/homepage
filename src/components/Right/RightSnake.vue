@@ -4,19 +4,13 @@
 	</div>
 </template>
 
-<script>
-	import { THEME_CONFIG } from "@/config/constants";
+<script setup lang="ts">
+import { THEME_CONFIG } from '@/config/constants'
 
-	export default {
-		data() {
-			return {
-				defaultSnakeUrl: THEME_CONFIG.SNAKE_URL_TEMPLATE.replace(
-					"{theme}",
-					THEME_CONFIG.LIGHT
-				),
-			};
-		},
-	};
+const defaultSnakeUrl = THEME_CONFIG.SNAKE_URL_TEMPLATE.replace(
+  '{theme}',
+  THEME_CONFIG.LIGHT
+)
 </script>
 
 <style>
@@ -35,4 +29,3 @@
 		}
 	}
 </style>
-

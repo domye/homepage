@@ -16,15 +16,10 @@
 	</div>
 </template>
 
-<script>
-	import { personalInfo } from "@/config/data";
-	export default {
-		data() {
-			return {
-				dec: personalInfo,
-			};
-		},
-	};
+<script setup lang="ts">
+import { personalInfo } from '@/config/data'
+
+const dec = personalInfo
 </script>
 
 <style scoped>

@@ -15,28 +15,15 @@
 	</div>
 </template>
 
-<script>
-	import RightDec from "./Right/RightDesc.vue";
-	import RightIcon from "./Right/RightIcon.vue";
-	import RightSnake from "./Right/RightSnake.vue";
-	import RightSwitch from "./Right/RightSwitch.vue";
-	import { socialLinks } from "@/config/data";
-	import RightTab from "./Right/RightTab.vue";
-	export default {
-		components: {
-			RightDec,
-			RightIcon,
-			RightSwitch,
-			RightSnake,
-			RightTab,
-		},
-		data() {
-			return {
-				transitionName: "slide-left",
-				icon: socialLinks,
-			};
-		},
-	};
+<script setup lang="ts">
+import RightDec from './Right/RightDesc.vue'
+import RightIcon from './Right/RightIcon.vue'
+import RightSnake from './Right/RightSnake.vue'
+import RightSwitch from './Right/RightSwitch.vue'
+import RightTab from './Right/RightTab.vue'
+import { socialLinks } from '@/config/data'
+
+const icon = socialLinks
 </script>
 
 <style>

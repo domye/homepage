@@ -6,33 +6,29 @@
 	</div>
 </template>
 
-<script>
-	export default {
-		name: "WelcomeNotification",
-		data() {
-			return {
-				showPopup: false,
-			};
-		},
-		mounted() {
-			// 检查是否已经显示过通知（使用localStorage）
-			const hasSeenPopup = localStorage.getItem("hasSeenWelcomePopup");
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
 
-			if (!hasSeenPopup) {
-				// 延迟显示，确保页面加载完成
-				setTimeout(() => {
-					this.showPopup = true;
-					// 标记为已显示
-					localStorage.setItem("hasSeenWelcomePopup", "true");
+const showPopup = ref(false)
 
-					// 3秒后自动消失
-					setTimeout(() => {
-						this.showPopup = false;
-					}, 5000);
-				}, 1000);
-			}
-		},
-	};
+onMounted(() => {
+  // 检查是否已经显示过通知（使用localStorage）
+  const hasSeenPopup = localStorage.getItem('hasSeenWelcomePopup')
+
+  if (!hasSeenPopup) {
+    // 延迟显示，确保页面加载完成
+    setTimeout(() => {
+      showPopup.value = true
+      // 标记为已显示
+      localStorage.setItem('hasSeenWelcomePopup', 'true')
+
+      // 3秒后自动消失
+      setTimeout(() => {
+        showPopup.value = false
+      }, 5000)
+    }, 1000)
+  }
+})
 </script>
 
 <style scoped>

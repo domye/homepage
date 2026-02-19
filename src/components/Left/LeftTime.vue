@@ -15,22 +15,21 @@
 	</div>
 </template>
 
-<script>
-	export default {
-		data() {
-			return {
-				times: [
-					{ action: "搭建个人笔记Wiki", date: "2025.8.13" },
-					{ action: "重构版主页上线", date: "2025.8.11" },
-					{ action: "着手开始主页Vue化", date: "2025.8.09" },
-					{ action: "更换博客主题为Handsome", date: "2025.7.16" },
-					{ action: "开始写黑马点评项目", date: "2025.7.15" },
-					{ action: "重新开始搭建博客", date: "2024.11.7" },
-					{ action: "购入域名domye.top", date: "2022.7.4" },
-				],
-			};
-		},
-	};
+<script setup lang="ts">
+interface TimelineItem {
+  action: string
+  date: string
+}
+
+const times: TimelineItem[] = [
+  { action: '搭建个人笔记Wiki', date: '2025.8.13' },
+  { action: '重构版主页上线', date: '2025.8.11' },
+  { action: '着手开始主页Vue化', date: '2025.8.09' },
+  { action: '更换博客主题为Handsome', date: '2025.7.16' },
+  { action: '开始写黑马点评项目', date: '2025.7.15' },
+  { action: '重新开始搭建博客', date: '2024.11.7' },
+  { action: '购入域名domye.top', date: '2022.7.4' },
+]
 </script>
 
 <style>

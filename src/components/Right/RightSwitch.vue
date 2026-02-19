@@ -17,63 +17,60 @@
 	</div>
 </template>
 
-<script>
-	import { THEME_CONFIG } from "@/config/constants";
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import { THEME_CONFIG } from '@/config/constants'
 
-	export default {
-		data() {
-			return {
-				themeState:
-					JSON.parse(sessionStorage.getItem(THEME_CONFIG.STORAGE_KEY)) ?? true,
-			};
-		},
-		mounted() {
-			this.applyTheme();
-		},
-		methods: {
-			toggleTheme() {
-				sessionStorage.setItem(
-					THEME_CONFIG.STORAGE_KEY,
-					JSON.stringify(this.themeState)
-				);
-				this.applyTheme();
-			},
-			applyTheme() {
-				const themeName = this.themeState ? THEME_CONFIG.LIGHT : THEME_CONFIG.DARK;
-				const isLight = themeName === THEME_CONFIG.LIGHT;
+const themeState = ref<boolean>(
+  JSON.parse(sessionStorage.getItem(THEME_CONFIG.STORAGE_KEY) ?? 'true')
+)
 
-				// 设置主题属性（影响一组 CSS 变量）
-				document.documentElement.setAttribute("data-theme", themeName);
+const applyTheme = () => {
+  const themeName = themeState.value ? THEME_CONFIG.LIGHT : THEME_CONFIG.DARK
+  const isLight = themeName === THEME_CONFIG.LIGHT
 
-				// 背景采用“图片层 + 纯色层”交叉淡入淡出，保证双向都有过渡
-				document.documentElement.style.setProperty(
-					"--bg-image",
-					THEME_CONFIG.BACKGROUND_URL_LIGHT
-				);
-				document.documentElement.style.setProperty(
-					"--bg-color",
-					THEME_CONFIG.BACKGROUND_COLOR_DARK
-				);
-				document.documentElement.style.setProperty(
-					"--bg-image-opacity",
-					isLight ? "1" : "0"
-				);
-				document.documentElement.style.setProperty(
-					"--bg-color-opacity",
-					isLight ? "0" : "1"
-				);
+  // 设置主题属性（影响一组 CSS 变量）
+  document.documentElement.setAttribute('data-theme', themeName)
 
-				// 更新蛇形图
-				const tanChiShe = document.getElementById("tanChiShe");
-				if (tanChiShe) {
-					tanChiShe.src = THEME_CONFIG.SNAKE_URL_TEMPLATE.replace(
-						"{theme}",
-						themeName
-					);
-				}
-			},
-		},
-	};
+  // 背景采用"图片层 + 纯色层"交叉淡入淡出，保证双向都有过渡
+  document.documentElement.style.setProperty(
+    '--bg-image',
+    THEME_CONFIG.BACKGROUND_URL_LIGHT
+  )
+  document.documentElement.style.setProperty(
+    '--bg-color',
+    THEME_CONFIG.BACKGROUND_COLOR_DARK
+  )
+  document.documentElement.style.setProperty(
+    '--bg-image-opacity',
+    isLight ? '1' : '0'
+  )
+  document.documentElement.style.setProperty(
+    '--bg-color-opacity',
+    isLight ? '0' : '1'
+  )
+
+  // 更新蛇形图
+  const tanChiShe = document.getElementById('tanChiShe')
+  if (tanChiShe) {
+    ;(tanChiShe as HTMLImageElement).src = THEME_CONFIG.SNAKE_URL_TEMPLATE.replace(
+      '{theme}',
+      themeName
+    )
+  }
+}
+
+const toggleTheme = () => {
+  sessionStorage.setItem(
+    THEME_CONFIG.STORAGE_KEY,
+    JSON.stringify(themeState.value)
+  )
+  applyTheme()
+}
+
+onMounted(() => {
+  applyTheme()
+})
 </script>
 <style>
 	.switch {

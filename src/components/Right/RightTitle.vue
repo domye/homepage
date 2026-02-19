@@ -7,15 +7,15 @@
 	</div>
 </template>
 
-<script>
-	export default {
-		props: {
-			page: {
-				type: Object,
-				default: () => ({}),
-			},
-		},
-	};
+<script setup lang="ts">
+interface PageInfo {
+  title: string
+  svg: string
+}
+
+defineProps<{
+  page: PageInfo
+}>()
 </script>
 
 <style>
