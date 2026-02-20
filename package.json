@@ -9,7 +9,10 @@
     "lint": "eslint . --ext .vue,.ts,.tsx --fix",
     "preview": "vite preview",
     "format": "prettier --write \"src/**/*.{vue,ts,tsx,js,jsx,json,css,scss}\"",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "lint-staged": {
     "*.{vue,ts,tsx}": [
@@ -34,16 +37,19 @@
     "@typescript-eslint/parser": "^7.0.0",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vue/eslint-config-typescript": "^12.0.0",
+    "@vue/test-utils": "^2.4.6",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-vue": "^9.24.0",
     "husky": "^9.1.7",
+    "jsdom": "^28.1.0",
     "lint-staged": "^16.2.7",
     "prettier": "^3.8.1",
     "typescript": "^5.4.0",
     "vite": "^5.2.0",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-imagemin": "^0.6.1",
+    "vitest": "^4.0.18",
     "vue-tsc": "^2.0.0"
   }
 }
