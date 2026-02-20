@@ -7,9 +7,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 
 const showPopup = ref(false)
+let showTimeout: ReturnType<typeof setTimeout> | null = null
+let hideTimeout: ReturnType<typeof setTimeout> | null = null
 
 onMounted(() => {
   // 检查是否已经显示过通知（使用localStorage）
@@ -17,16 +19,26 @@ onMounted(() => {
 
   if (!hasSeenPopup) {
     // 延迟显示，确保页面加载完成
-    setTimeout(() => {
+    showTimeout = setTimeout(() => {
       showPopup.value = true
       // 标记为已显示
       localStorage.setItem('hasSeenWelcomePopup', 'true')
 
-      // 3秒后自动消失
-      setTimeout(() => {
+      // 5秒后自动消失
+      hideTimeout = setTimeout(() => {
         showPopup.value = false
       }, 5000)
     }, 1000)
+  }
+})
+
+onUnmounted(() => {
+  // 清理timeout，防止内存泄漏
+  if (showTimeout) {
+    clearTimeout(showTimeout)
+  }
+  if (hideTimeout) {
+    clearTimeout(hideTimeout)
   }
 })
 </script>
