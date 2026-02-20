@@ -16,9 +16,19 @@ pnpm-debug.log*
 
 # Editor directories and files
 .idea
-.vscode
+.vscode/settings.json
+.vscode/*.log
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local files
+*.local
+.eslintcache
+.stylelintcache
