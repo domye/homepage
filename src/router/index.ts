@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { ROUTES } from '@/config/constants'
 
+// 路由配置 - 使用懒加载优化首屏性能
 const routes = [
   {
     path: ROUTES.HOME,

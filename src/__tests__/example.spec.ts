@@ -1,10 +1,10 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { mount } from '@vue/test-utils'
 
-// Simple utility function test example
-describe('Utils', () => {
-  describe('formatDate', () => {
-    it('should format date correctly', () => {
+// 简单的工具函数测试示例
+describe('工具函数', () => {
+  describe('日期格式化', () => {
+    it('应该正确格式化日期', () => {
       const date = new Date('2024-01-15')
       const formatted = date.toLocaleDateString('zh-CN')
       expect(formatted).toBe('2024/1/15')
@@ -12,10 +12,10 @@ describe('Utils', () => {
   })
 })
 
-// Component test example
-// Note: This is a placeholder test since WelcomePopup uses localStorage
-describe('Component Basics', () => {
-  it('should render a simple div', () => {
+// 组件测试示例
+// 注意：这是一个占位测试，因为 WelcomePopup 使用了 localStorage
+describe('组件基础', () => {
+  it('应该渲染一个简单的 div', () => {
     const wrapper = mount({
       template: '<div class="test">Hello</div>',
     })
@@ -24,7 +24,7 @@ describe('Component Basics', () => {
   })
 })
 
-// Mock test example
+// Mock 测试示例
 describe('LocalStorage', () => {
   const getItemSpy = vi.spyOn(Storage.prototype, 'getItem')
   const setItemSpy = vi.spyOn(Storage.prototype, 'setItem')
@@ -37,7 +37,7 @@ describe('LocalStorage', () => {
     vi.restoreAllMocks()
   })
 
-  it('should interact with localStorage', () => {
+  it('应该能与 localStorage 交互', () => {
     localStorage.setItem('test', 'value')
     expect(setItemSpy).toHaveBeenCalledWith('test', 'value')
 
@@ -47,16 +47,16 @@ describe('LocalStorage', () => {
   })
 })
 
-// Async test example
-describe('Async Operations', () => {
-  it('should handle async operations', async () => {
+// 异步测试示例
+describe('异步操作', () => {
+  it('应该处理异步操作', async () => {
     const asyncFn = vi.fn().mockResolvedValue('success')
     const result = await asyncFn()
     expect(result).toBe('success')
     expect(asyncFn).toHaveBeenCalledTimes(1)
   })
 
-  it('should wait for next tick', async () => {
+  it('应该等待下一个 tick', async () => {
     let value = 'initial'
     setTimeout(() => {
       value = 'updated'

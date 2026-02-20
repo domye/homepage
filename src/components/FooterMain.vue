@@ -45,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-// No script needed
+// 无需脚本逻辑
 </script>
 
 <style>
