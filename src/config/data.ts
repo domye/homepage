@@ -45,33 +45,33 @@ export const socialLinks: SocialLink[] = [
   {
     tip: 'Github',
     url: 'https://github.com/domye',
-    svg: (svg as Record<string, string>).Github,
+    svg: svg.Github,
   },
   {
     tip: 'B站',
     url: 'https://space.bilibili.com/259725803',
-    svg: (svg as Record<string, string>).bili,
+    svg: svg.bili,
     box: '0 0 1071 1024',
   },
   {
     tip: '抖音',
     url: 'https://www.douyin.com/user/MS4wLjABAAAAB6SzADkpU7jExFNzB_2JvzzUwb13YFAqTc8kYmaqzFs',
-    svg: (svg as Record<string, string>).douyin,
+    svg: svg.douyin,
   },
   {
     tip: '博客',
     url: 'https://blog.domye.top',
-    svg: (svg as Record<string, string>).blog,
+    svg: svg.blog,
   },
 ]
 
 export const personalInfo: PersonalInfo[] = [
   {
-    icon: (svg as Record<string, string>).people,
+    icon: svg.people,
     dec: '一个白日梦想家',
   },
   {
-    icon: (svg as Record<string, string>).doc,
+    icon: svg.doc,
     dec: '无限进步',
   },
 ]
