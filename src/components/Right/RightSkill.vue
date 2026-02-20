@@ -1,7 +1,7 @@
 <template>
   <div class="skill">
-    <img id="skillPc" :src="skillIconsPc" />
-    <img id="skillWap" :src="skillIconsWap" />
+    <img id="skillPc" :src="skillIconsPc" loading="lazy" alt="Skills" />
+    <img id="skillWap" :src="skillIconsWap" loading="lazy" alt="Skills" />
   </div>
 </template>
 
