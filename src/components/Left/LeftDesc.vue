@@ -1,6 +1,6 @@
 <template>
   <div class="left-div left-des">
-    <div class="left-des-item" v-for="(item, index) in dec" :key="index">
+    <div v-for="(item, index) in dec" :key="index" class="left-des-item">
       <svg class="icon" viewBox="0 0 1024 1024" width="256" height="256">
         <path :d="item.icon"></path>
       </svg>

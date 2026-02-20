@@ -39,13 +39,13 @@
             </div>
           </div>
         </div>
-        <div class="project-description" v-if="item.content">
+        <div v-if="item.content" class="project-description">
           <h3>简介</h3>
           <p v-for="(line, idx) in item.content.split('\n')" :key="idx">
             {{ line.trim() }}
           </p>
         </div>
-        <div class="tech-stack" v-if="item.tech">
+        <div v-if="item.tech" class="tech-stack">
           <h3>标签</h3>
           <div class="tech-tags">
             <span

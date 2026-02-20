@@ -2,11 +2,11 @@
   <div class="switch">
     <div class="onoffswitch">
       <input
+        id="myonoffswitch"
+        v-model="themeState"
         type="checkbox"
         name="onoffswitch"
         class="onoffswitch-checkbox"
-        id="myonoffswitch"
-        v-model="themeState"
         @change="toggleTheme"
       />
       <label class="onoffswitch-label" for="myonoffswitch">

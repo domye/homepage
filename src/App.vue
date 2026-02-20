@@ -2,7 +2,7 @@
   <div id="app">
     <WelcomePopup />
     <div class="background"></div>
-    <div class="main" ref="mainContainer">
+    <div ref="mainContainer" class="main">
       <LeftMain />
       <RightMain />
     </div>

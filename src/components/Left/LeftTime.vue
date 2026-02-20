@@ -1,11 +1,11 @@
 <template>
-  <div class="left-div left-time" ref="container">
+  <div ref="container" class="left-div left-time">
     <ul id="line" ref="timeline">
       <li
         v-for="(item, index) in times"
         :key="index"
-        class="timeline-item"
         ref="items"
+        class="timeline-item"
       >
         <div class="focus"></div>
         <div class="action">{{ item.action }}</div>

@@ -1,9 +1,9 @@
 <template>
   <div>
     <a
-      class="iconItem"
       v-for="item in icon"
       :key="item.tip"
+      class="iconItem"
       target="_blank"
       rel="noopener noreferrer"
       :href="item.url"

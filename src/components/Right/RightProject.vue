@@ -4,10 +4,10 @@
     <div class="projectList">
       <a
         v-for="(item, index) in data"
+        :key="index"
         class="projectItem"
         href="#"
         @click.prevent="showModal(item)"
-        :key="index"
       >
         <div class="projectItemLeft">
           <h1>{{ item.title }}</h1>
@@ -24,7 +24,7 @@
       <BottomSheetModal
         :item="currentItem"
         :is-visible="isModalVisible"
-        @update:isVisible="isModalVisible = $event"
+        @update:is-visible="isModalVisible = $event"
       />
     </keep-alive>
   </div>
