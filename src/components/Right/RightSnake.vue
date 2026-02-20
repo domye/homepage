@@ -1,7 +1,11 @@
 <template>
-	<div class="tanChiShe">
-		<img id="tanChiShe" :src="defaultSnakeUrl" alt="GitHub contribution snake" />
-	</div>
+  <div class="tanChiShe">
+    <img
+      id="tanChiShe"
+      :src="defaultSnakeUrl"
+      alt="GitHub contribution snake"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -14,18 +18,18 @@ const defaultSnakeUrl = THEME_CONFIG.SNAKE_URL_TEMPLATE.replace(
 </script>
 
 <style>
-	.tanChiShe {
-		width: 85%;
-	}
-	.tanChiShe img {
-		width: 100%;
-		height: 100%;
-		/* object-fit: cover; */
-	}
-	@media (max-width: 800px) {
-		.tanChiShe {
-			width: 100%;
-			transition: width 1s ease-in-out;
-		}
-	}
+.tanChiShe {
+  width: 85%;
+}
+.tanChiShe img {
+  width: 100%;
+  height: 100%;
+  /* object-fit: cover; */
+}
+@media (max-width: 800px) {
+  .tanChiShe {
+    width: 100%;
+    transition: width 1s ease-in-out;
+  }
+}
 </style>

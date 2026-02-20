@@ -2,8 +2,11 @@ import svg from '@/assets/svg.json'
 
 const stripTrailingSlash = (url: string) => (url ? url.replace(/\/$/, '') : '')
 
-const CDN_URL = stripTrailingSlash(import.meta.env.VITE_CDN_URL as string) || 'https://cdn.domye.top'
-const GITHUB_USERNAME = (import.meta.env.VITE_GITHUB_USERNAME as string) || 'domye'
+const CDN_URL =
+  stripTrailingSlash(import.meta.env.VITE_CDN_URL as string) ||
+  'https://cdn.domye.top'
+const GITHUB_USERNAME =
+  (import.meta.env.VITE_GITHUB_USERNAME as string) || 'domye'
 
 export const ENV = {
   CDN_URL,

@@ -1,12 +1,12 @@
 <template>
-	<div>
-		<RightTitle :page="title[0]" />
-		<RightProject :data="website" />
-		<RightTitle :page="title[1]" />
-		<RightProject :data="project" />
-		<RightTitle :page="title[2]" />
-		<RightSkill />
-	</div>
+  <div>
+    <RightTitle :page="title[0]" />
+    <RightProject :data="website" />
+    <RightTitle :page="title[1]" />
+    <RightProject :data="project" />
+    <RightTitle :page="title[2]" />
+    <RightSkill />
+  </div>
 </template>
 
 <script setup lang="ts">

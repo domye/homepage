@@ -1,8 +1,8 @@
 <template>
-	<div>
-		<RightTitle :page="title"></RightTitle>
-		<RightFaq></RightFaq>
-	</div>
+  <div>
+    <RightTitle :page="title"></RightTitle>
+    <RightFaq></RightFaq>
+  </div>
 </template>
 
 <script setup lang="ts">
