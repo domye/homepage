@@ -4,15 +4,18 @@ import { ROUTES } from '@/config/constants'
 const routes = [
   {
     path: ROUTES.HOME,
-    component: () => import('@/views/RightFirst.vue'),
+    component: () =>
+      import(/* webpackChunkName: "home" */ '@/views/RightFirst.vue'),
   },
   {
     path: ROUTES.CONTENT,
-    component: () => import('@/views/RightSecond.vue'),
+    component: () =>
+      import(/* webpackChunkName: "content" */ '@/views/RightSecond.vue'),
   },
   {
     path: ROUTES.FAQ,
-    component: () => import('@/views/RightThird.vue'),
+    component: () =>
+      import(/* webpackChunkName: "faq" */ '@/views/RightThird.vue'),
   },
   {
     path: '/:pathMatch(.*)*',
