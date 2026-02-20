@@ -33,20 +33,9 @@
 <script setup lang="ts">
 import { ref, defineAsyncComponent } from 'vue'
 import type { ProjectData } from '@/config/data'
+import type { ModalItem } from '@/types/components'
 
 const BottomSheetModal = defineAsyncComponent(() => import('./BottomSheetModal.vue'))
-
-interface ModalItem {
-  title: string
-  content: string
-  img: string
-  type: string
-  author: string
-  desc: string
-  link: string
-  github: string
-  tech: string
-}
 
 defineProps<{
   data: ProjectData[]

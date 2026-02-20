@@ -42,18 +42,7 @@
 
 <script setup lang="ts">
 import { ref, watch, onMounted, onUnmounted } from 'vue'
-
-interface ModalItem {
-  title: string
-  content: string
-  img: string
-  type: string
-  author: string
-  desc: string
-  link: string
-  github: string
-  tech: string
-}
+import type { ModalItem } from '@/types/components'
 
 const props = defineProps<{ item: ModalItem; isVisible: boolean }>()
 const emit = defineEmits<{ (e: 'update:isVisible', value: boolean): void }>()
